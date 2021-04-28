@@ -6,4 +6,6 @@ public class LoginFailedException extends Exception {
 		super(msg);
 	}
 	
+	/* asdfasdfasdfasdfasdf */
+	
 }
