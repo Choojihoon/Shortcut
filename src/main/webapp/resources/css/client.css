@@ -1,0 +1,19 @@
+@charset "UTF-8";
+.myproject_area{}
+.myproject_area .myproject{margin-top: 15px; font-weight: bold; font-size: 20px;}
+.myproject_area .client_line{border: 1px solid lightgray; margin: 15px 0;}
+
+.myproject_area .select_project{}
+.myproject_area .select_project .row{margin: 0;}
+.myproject_area .select_project .row .project_list{float:left; margin-right: 30px; }
+.myproject_area .select_project .row .project_list .list_detail{width: 80px;  height: 80px; display: inline-block; text-align: center;
+    line-height: 80px; border-radius: 10px;}
+.myproject_area .select_project .row .project_list:hover{opacity: 0.5;}
+.myproject_area .select_project .row .project_list .list_detail .img_detail{width: 40px; height: 40px;}
+.myproject_area .select_project .row .project_list .board_text{ text-align: center; color: gray; }
+
+
+.myproject_area .timeline_area{ margin: 30px 0; width:100%;}
+
+
+

@@ -1,0 +1,141 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greedy.shortcut.board.model.dao.ProjectMapper">
+
+	<resultMap id="memberResultSet" type="MemberDTO">
+		<id column="MEM_NO" property="no" />
+		<result column="MEM_NAME" property="name" />
+		<result column="MEM_ID" property="email" />
+		<result column="MEM_PWD" property="password" />
+		<result column="PHONE" property="phone" />
+	</resultMap>
+	
+ 	<resultMap id="ProjectResultSet" type="ProjectDTO">
+		<id column="PJT_NO" property="pjtNo"/>
+		<result column="PJT_NAME" property="projectName"/>
+		<result column="PJT_START_DATE" property="projectStartDate"/>
+		<result column="PJT_DEL_YN" property="projectDelYN"/>
+		<result column="MEM_NO" property="memberNo"/>
+		<result column="PJT_END_DATE" property="projectEndDate"/>
+		<result column="PJT_COLOR" property="projectColor"/>
+	</resultMap>
+	
+	 <resultMap id="AuthorityResultSet" type="ProjectAuthorityDTO">
+		<id column="PA_NO" property="projectRoleNo"/>	<!-- 권한고유번호 -->
+		<result column="PA_ROLE" property="projectRole"/><!-- 	회원권한 -->
+		<result column="PJT_NO" property="pjtNo"/>		<!-- 프로젝트번호  -->
+		<result column="MEM_NO" property="memberNo"/>	
+	</resultMap> 
+	
+	<!-- <resultMap type="ProjectAndAuthorityDTO" id="ProjectAndAuthorityResultSet">
+		<id column="PJT_NO" property="pjtNo"/>
+		<id column="PA_NO" property="projectRoleNo"/>
+		<result column="PJT_NAME" property="projectName"/>
+		<result column="PJT_START_DATE" property="projectStartDate"/>
+		<result column="PJT_DEL_YN" property="projectDelYN"/>
+		<result column="MEM_NO" property="memberNo"/>
+		<result column="PJT_END_DATE" property="projectEndDate"/>
+		<result column="PJT_COLOR" property="projectColor"/>
+		<result column="PA_ROLE" property="projectRole"/>
+	</resultMap> -->
+	<!-- 아이디 유무 체크 -->
+	<select id="selectMemberDupCheck" resultMap="memberResultSet" parameterType="MemberDTO">
+	 SELECT 
+            A.MEM_NO
+       FROM MEMBER A 
+      WHERE A.MEM_ID = #{email} 
+	</select>
+	<!-- 프로젝트 생성 -->
+	 <insert id="insertPoject" parameterType="ProjectDTO">
+	INSERT
+	  INTO PROJECT A
+	  (
+	     A.PJT_NO, A.PJT_NAME, A.PJT_START_DATE, MEM_NO,
+	     A.PJT_DEL_YN, A.PJT_END_DATE, A.PJT_COLOR
+	    )
+	  VALUES
+	  (
+	    SEQ_PJT_NO.NEXTVAL, #{projectName}, #{projectStartDate}, #{memberNo},
+	    'N', #{projectEndDate}, #{projectColor}
+	  )
+	</insert>
+	<!-- 프로젝트 넘버 조회 -->
+	 <select id="selectProjectNum" resultMap="ProjectResultSet" parameterType="ProjectDTO">
+	 SELECT 
+            SEQ_PJT_NO.CURRVAL
+       FROM DUAL
+	</select> 
+	<!-- 프로젝트 멤버 등록 -->
+	<insert id="insertProjectMember" parameterType="ProjectAuthorityDTO">
+	<selectKey keyProperty="pjtNo" order="BEFORE" resultType="_int">
+		 SELECT 
+	            SEQ_PJT_NO.CURRVAL
+	       FROM DUAL
+    </selectKey>
+		INSERT
+		   INTO PJT_AUTHORITY
+		   (
+		   PA_ROLE, PJT_NO, MEM_NO, PA_NO
+		   )
+		   VALUES
+		   (
+		    #{projectRole}, #{pjtNo}, #{memberNo}, SEQ_PA_NO.NEXTVAL
+		    )
+	</insert>
+
+	<!-- 프로젝트 리스트 조회 -->
+	<select id="selectProjectList" resultMap="ProjectResultSet" parameterType="MemberDTO">
+	SELECT
+		       DISTINCT A.PJT_NO
+		     , A.PJT_NAME
+		     , A.PJT_START_DATE
+		     , A.PJT_DEL_YN
+		     , A.MEM_NO
+		     , A.PJT_END_DATE
+		     , A.PJT_COLOR
+		  FROM PROJECT A
+		 JOIN PJT_AUTHORITY C ON(A.PJT_NO = C.PJT_NO)
+		 WHERE A.PJT_DEL_YN = 'N'
+           AND C.MEM_NO = #{no}
+	</select> 
+	
+	<!-- 프로젝트 생성 이력 등록 -->
+	<insert id="insertProjectHistory" parameterType="ProjectDTO">
+	<selectKey keyProperty="pjtNo" order="BEFORE" resultType="_int">
+		 SELECT 
+	            SEQ_PJT_NO.CURRVAL
+	       FROM DUAL
+    </selectKey>
+	    INSERT
+	      INTO PROJECT_HISTORY A
+	      (
+	        A.PJT_NO, A.PJT_NAME, A.PJT_START_DATE, A.PJT_END_DATE
+	      , A.UPDATE_DATE, A.PJT_DEL_YN, A.PJT_HIS_NO, A.PJT_COLOR
+	      )
+	      VALUES
+	      (
+	      #{pjtNo}, #{projectName}, #{projectStartDate},#{projectEndDate}
+	      , SYSDATE, 'N', SEQ_PJT_HIS_NO.NEXTVAL, #{projectColor}
+	      )
+	</insert>
+	
+	<!-- 프로젝트 생성 회원 이력 등록 -->
+	<insert id="insertProjectMemberHistory" parameterType="ProjectAuthorityDTO">
+	<selectKey keyProperty="memberNo" order="BEFORE" resultType="_int">
+		 SELECT 
+	            SEQ_PA_NO.CURRVAL
+	       FROM DUAL
+    </selectKey>
+		INSERT
+	      INTO TM_HISTORY
+			 (
+			   PA_ROLE, UPDATE_DATE, PA_NO
+			 )
+	    VALUES
+			 (
+			   #{projectRole}, SYSDATE, #{memberNo}
+			  )
+	</insert>
+ </mapper>

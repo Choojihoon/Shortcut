@@ -1,0 +1,63 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+ <configuration>
+ 	<typeAliases>
+ 		<typeAlias alias="MemberDTO" type="com.greedy.shortcut.member.model.dto.MemberDTO"/>
+
+ 		<typeAlias alias="ClientProjectDTO" type="com.greedy.shortcut.mywork.model.dto.ClientProjectDTO"/>
+
+ 		<typeAlias alias="ClientProjectAndSprintDTO" type="com.greedy.shortcut.mywork.model.dto.ClientProjectAndSprintDTO"/>
+
+ 		<typeAlias alias="ProjectDTO" type="com.greedy.shortcut.board.model.dto.ProjectDTO"/>
+
+ 		<typeAlias alias="ProjectAuthorityDTO" type="com.greedy.shortcut.board.model.dto.ProjectAuthorityDTO"/>
+ 		
+ 		<typeAlias alias="ProjectAndAuthorityDTO" type="com.greedy.shortcut.board.model.dto.ProjectAndAuthorityDTO"/>
+
+ 		<typeAlias alias="ClientCardDTO" type="com.greedy.shortcut.mywork.model.dto.ClientCardDTO"/>
+
+ 		<typeAlias alias="MyworkResponseCardAndTaskDTO" type="com.greedy.shortcut.mywork.model.dto.MyworkResponseCardAndTaskDTO"/>
+ 		
+ 		<typeAlias alias="ClientSprintDTO" type="com.greedy.shortcut.mywork.model.dto.ClientSprintDTO"/>
+ 		
+ 		<typeAlias alias="MeetingDTO" type="com.greedy.shortcut.meeting.model.dto.MeetingDTO"/>
+
+ 		<typeAlias alias="ClientCardTaskAndCardAndMemberDTO" type="com.greedy.shortcut.mywork.model.dto.ClientCardTaskAndCardAndMemberDTO"/>
+
+		<typeAlias alias="CardTaskDTO" type="com.greedy.shortcut.board.model.dto.CardTaskDTO"/>
+
+		<typeAlias alias="ReviewDTO" type="com.greedy.shortcut.retrospect.model.dto.ReviewDTO"/>
+
+ 		<typeAlias alias="MessengerDTO" type="com.greedy.shortcut.messenger.model.dto.MessengerDTO"/>
+
+ 		<typeAlias alias="PmDTO" type="com.greedy.shortcut.messenger.model.dto.PmDTO"/>
+ 		
+ 		<typeAlias alias="AttendListDTO" type="com.greedy.shortcut.meeting.model.dto.AttendListDTO"/>
+
+ 		<typeAlias alias="BacklogDTO" type="com.greedy.shortcut.board.model.dto.BacklogDTO"/>
+ 		
+ 		<typeAlias alias="CardDTO" type="com.greedy.shortcut.board.model.dto.CardDTO"/>
+ 		
+ 		<typeAlias alias="MyworkResponseCardAndScheduleDTO" type="com.greedy.shortcut.mywork.model.dto.MyworkResponseCardAndScheduleDTO"/>
+ 		
+ 		<typeAlias alias="BoardDTO" type="com.greedy.shortcut.board.model.dto.BoardDTO"/>
+
+ 		<typeAlias alias="SprintDTO" type="com.greedy.shortcut.board.model.dto.SprintDTO"/>
+
+ 		<typeAlias alias="ProjectAndSprintDTO" type="com.greedy.shortcut.retrospect.model.dto.ProjectAndSprintDTO"/>
+
+ 		<typeAlias alias="ReviewAndProjectMemberDTO" type="com.greedy.shortcut.retrospect.model.dto.ReviewAndProjectMemberDTO"/>
+ 		
+ 		<typeAlias alias="MeetingHistoryDTO" type="com.greedy.shortcut.meeting.model.dto.MeetingHistoryDTO"/>
+ 		
+ 		<typeAlias alias="RequestCardDTO" type="com.greedy.shortcut.board.model.dto.RequestCardDTO"/>
+ 		
+ 		<typeAlias alias="CardAttendListDTO" type="com.greedy.shortcut.board.model.dto.CardAttendListDTO"/>
+ 		
+ 		<typeAlias alias="AlertDTO" type="com.greedy.shortcut.alarm.model.dto.AlertDTO"/>
+ 		
+ 	</typeAliases>
+ 	
+ </configuration>

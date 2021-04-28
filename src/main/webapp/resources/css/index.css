@@ -1,0 +1,129 @@
+@charset "UTF-8";
+.top_area{padding: 0 20px; line-height: 50px; border-bottom: 1px solid #ed1745; position: relative;}
+.top_area .row{margin: 0;}
+.top_area .row .top_logo_area{width: 20%; float: left;}
+.top_area .row .top_logo_area .top_logo_detail{text-decoration: none;}
+.top_area .row .top_logo_area .logo_detail{width: 30px; height: 30px;}
+.top_area .row .top_logo_area .logo_text{font-size: 18px; font-weight: bold; color: #ed1745;}
+.top_area .row .top_menu_area{width: 80%; float: right;}
+.top_area .row .top_menu_area .menu_list{float: right; padding: 0 10px; color: #eb98aa; text-decoration: none; cursor: pointer;}
+.top_area .row .top_menu_area .menu_list .fa-bell{color: #eb98aa;}
+.top_area .row .top_menu_area .menu_list:hover{color:#ed1745;}
+.top_area .row .top_menu_area .menu_list .fa-bell:hover{color:#ed1745;}
+
+
+.main_content{margin: 5%;}
+.main_content .row{margin: 0;}
+.main_content .row .main_text_area{float: left; width: 35%; margin: 5% 2%;}
+.main_content .row .main_text_area .main_text1{font-size: 50px;}
+.main_content .row .main_text_area .main_line{border: 1px solid black; width: 100px; margin: 50% 0 10%;}
+.main_content .row .main_text_area .main_text2{font-size: 24px;}
+
+.main_content .row .main_img_area{float: left; width: 60%;}
+.main_content .row .main_img_area .carousel.slide{text-align: center;}
+.main_content .row .main_img_area .carousel.slide .item{ }
+.main_content .row .main_img_area .carousel.slide .item .img_detail{width: 950px;  height: 750px; margin: 0 auto;}
+
+
+
+
+/* 모달 */
+.modal.fade{}
+.modal.fade .modal-dialog{}
+.modal.fade .modal-dialog .modal-content{padding: 15px;}
+.modal.fade .modal-dialog .modal-content.login.none{display: none;}
+.modal.fade .modal-dialog .modal-content .modal-header{border: 0;}
+.modal.fade .modal-dialog .modal-content .modal-header .modal-title{text-align: center; font-size: 25px;  font-weight: bold;}
+
+.modal.fade .modal-dialog .modal-content .modal-body{}
+.modal.fade .modal-dialog .modal-content .modal-body .login_info{margin-bottom: 15px; text-align: center;}
+.modal.fade .modal-dialog .modal-content .modal-body .login_info .regist_icon{color: red;}
+.modal.fade .modal-dialog .modal-content .modal-body .login_info .input_detail{width: 90%; height: 50px; border-radius: 20px; padding: 12px; outline: none; border: 1px solid lightgray;}
+
+.modal.fade .modal-dialog .modal-content .modal-body .login_info .input_detail:focus {border: 1px solid #ed1745; outline: none;}
+
+
+
+
+.modal.fade .modal-dialog .modal-content .modal-body.type3{ padding:15px 45px; margin: 10px 0;  background-color: white;}
+.modal.fade .modal-dialog .modal-content .modal-body.type3 .participation_list{}
+.modal.fade .modal-dialog .modal-content .modal-body.type3 .participation_list .participation_item{}
+.modal.fade .modal-dialog .modal-content .modal-body.type3 .participation_list .participation_item .row{ margin: 0; border: 1px solid rgb(237, 23, 69);  height: 40px;  line-height: 40px;  border-radius: 15px; margin-bottom: 10px;}
+
+
+
+
+
+.modal.fade .modal-dialog .modal-content .modal-body.type3 .participation_list .participation_item .row .item_list.type1{float: left; width: 30%;  text-align: center; font-size: 16px;}
+.modal.fade .modal-dialog .modal-content .modal-body.type3 .participation_list .participation_item .row .item_list.type2{float:left; width: 50%;  text-align: center; font-size: 16px;}
+.modal.fade .modal-dialog .modal-content .modal-body.type3 .participation_list .participation_item .row .item_list.type3{float: left; width: 20%; text-align: center;}
+.modal.fade .modal-dialog .modal-content .modal-body.type3 .participation_list .participation_item .row .item_list.type3 .send_btn{width: 50px; height: 34px; line-height: 30px; background-color: white;border: 0px; outline: none;}
+.modal.fade .modal-dialog .modal-content .modal-body.type3 .participation_list .participation_item .row .item_list.type3 .send_btn:hover{font-weight: bold;}
+
+
+.modal.fade .modal-dialog .modal-content .login_btn_area{text-align: center;}
+.modal.fade .modal-dialog .modal-content .login_btn_area .login_btn{width: 85%; display: block; line-height: 50px;  margin: 0 auto;  height: 50px;  background-color: #ffccd7;  border: 1px solid #ffccd7; border-radius: 20px; outline: none; color: white;}
+
+.modal.fade .modal-dialog .modal-content .modal_text_area{margin: 15px 0; text-align: center}
+.modal.fade .modal-dialog .modal-content .modal_text_area .modal_text{ color: #8592D6;  padding: 5px 0;}
+.modal.fade .modal-dialog .modal-content .modal_text_area .modal_text .modal_text_detail{text-decoration: none; color: #8592D6;}
+
+.modal.fade .modal-dialog .modal-content .modal_explanation{text-align: center; width: 80%;margin: 0 auto;}
+.modal.fade .modal-dialog .modal-content .modal_explanation .modal_text1{}
+.modal.fade .modal-dialog .modal-content .modal_explanation .modal_text1 .text_detail{color:red;}
+
+
+    
+.modal.fade .modal-dialog .modal-content .modal_btn_area{text-align: center;}
+.modal.fade .modal-dialog .modal-content .modal_btn_area .modal_btn{width: 85%;  height: 50px;  background-color: #ffccd7;  border: 1px solid #ffccd7; border-radius: 20px; outline: none; color: white;}
+
+
+
+.modal.fade .modal-dialog .modal-content.type3{background-color: lightgray;}
+.modal.fade .modal-dialog .modal-content.type3 .modal-body.chat-list{margin: 10px 0; background-color:#ffe3e8; overflow-y: scroll;  height: 500px;}
+.modal.fade .modal-dialog .modal-content.type3 .modal-body.chat-list .other{border: 1px solid lightpink;  border-radius: 8px;   
+    max-width: 35%; padding: 7px; background-color: white; letter-spacing: 1px; word-break: break-all;}
+    
+.modal.fade .modal-dialog .modal-content.type3 .modal-body.chat-list .mine{margin-left: auto; border: 1px solid lightpink;  border-radius: 8px;  
+    max-width: 35%; padding: 7px; background-color: #FFF4A7; letter-spacing: 1px; word-break: break-all;}
+
+
+.modal.fade .modal-dialog .modal-content.type3 .modal-header.type3{background-color: ghostwhite;}
+.modal.fade .modal-dialog .modal-content.type3 .modal-header.type3 .chatting_header{}
+.modal.fade .modal-dialog .modal-content.type3 .modal-header.type3 .chatting_header .row{margin: 0; line-height: 30px;}
+.modal.fade .modal-dialog .modal-content.type3 .modal-header.type3 .chatting_header .row .chatting_logo{float: left; width: 30px;
+    height: 30px;}
+.modal.fade .modal-dialog .modal-content.type3 .modal-header.type3 .chatting_header .row .chatting_logo .chatting_logo_detail{ width: 30px;
+    height: 30px; }
+
+.modal.fade .modal-dialog .modal-content.type3 .modal-header.type3 .chatting_header .row .chatting_info{float: left; padding: 0 20px;
+    font-size: 17px;
+    font-weight: bold;}
+
+.modal.fade .modal-dialog .modal-content.type3 .modal-body.type3{padding: 10px 0;}
+.modal.fade .modal-dialog .modal-content.type3 .modal-body.type3 .modal_textarea_detail{width: 100%; height: 500px; border:0;}
+
+.modal.fade .modal-dialog .input_area{width: 100%; height: 90px; position: relative;}
+.modal.fade .modal-dialog .input_area .messagebox_detail{height: 100%; width: 100%; padding: 10px 85px 10px 10px;}
+.modal.fade .modal-dialog .input_area .message_send{position: absolute; top: 0; right: 0; width: 15%;  height: 100%;
+    background: white;  font-size: 17px;  font-weight: bold; border: 1px solid gray;}
+
+/* 알람 */
+.alarmArea{border-bottom:1px solid #ed1745; border-left:1px solid #ed1745; width: 20%;  position: absolute; right: 0; z-index: 999; background-color: white;   z-index: 999;   padding: 15px; height: 500px; overflow-x: hidden; overflow-y: auto;}
+.alarmCount{opacity: 0.5; text-align: center; line-height: 1.5; border-radius: 50%; border:0px solid #000000; width: 35px;  position: absolute; right: -6px; top: -4px; background-color: rgba( 255, 255, 255, 0.5 );   z-index: 998;   padding: 5px; height: 35px; color: red; font-weight: bold;}
+.alarmCount2{opacity: 0; text-align: center; line-height: 1.5; border-radius: 50%; border:0px solid #000000; width: 35px;  position: absolute; right: -6px; top: -4px; background-color: rgba( 255, 255, 255, 0.5 );   z-index: 998;   padding: 5px; height: 35px; color: red; font-weight: bold;}
+.aab{opacity: 0; border-radius: 50%; border:0px solid #000000; width: 20px;  position: absolute; right: 50px; top: 8px; background-color: white;   z-index: 997;   padding: 5px; height: 20px; }
+.alarmArea.on{display:none;}
+#generalAlarmBtn{width: 50%;}
+#githubAlarmBtn{width: 50%;}
+.gitPagingBtn{background-color: white; border: 0; }
+.alBtn{background-color: white; border: 1px solid black; margin-left: 50px; font-size: 20px;}
+.alBtnArea{;}
+.main{ font-style: italic; font-size: 20px;}
+.bt:hover {background-color: #ed1745;}
+
+#generalAlarmDiv{ text-decoration: none; }
+.altTxt{ font-size: 13px; text-align: left; color: black; width: 80%; float: left;}
+.altDelBtn{ font-size: 13px; background-color: white; border: 0px solid lightgray; color: black; width: 20%; margin-top: 0px; float: left;}
+.altEnrollDate{ font-size: 11px; text-align: left; /* margin: 10px; padding: 10px; */}
+

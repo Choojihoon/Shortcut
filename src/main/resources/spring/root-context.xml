@@ -1,0 +1,69 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:tx="http://www.springframework.org/schema/tx"
+	xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:mybatis-spring="http://mybatis.org/schema/mybatis-spring"
+	xsi:schemaLocation="http://mybatis.org/schema/mybatis-spring http://mybatis.org/schema/mybatis-spring-1.2.xsd
+		http://www.springframework.org/schema/beans https://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-4.3.xsd
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-4.3.xsd">
+	
+	<!-- Root Context: defines shared resources visible to all other web components -->
+		
+	<bean id="sqlSessionFactory" class="org.mybatis.spring.SqlSessionFactoryBean">
+		<property name="configLocation" value="classpath:mybatis/mybatis-config.xml"/>
+		<property name="dataSource" ref="dataSource"></property>
+	</bean>
+	
+	<bean id="dataSource" class="org.apache.commons.dbcp.BasicDataSource" destroy-method="close">
+		<property name="driverClassName" value="net.sf.log4jdbc.sql.jdbcapi.DriverSpy"/>
+		<property name="url" value= "jdbc:log4jdbc:oracle:thin:@localhost:1521:XE"/>
+		<property name="username" value="SHORTCUT"/>
+		<property name="password" value="SHORTCUT"/>
+		<property name="defaultAutoCommit" value="false"/>
+	</bean>
+	
+	<bean id="transactionManager"
+		class="org.springframework.jdbc.datasource.DataSourceTransactionManager">
+		<property name="dataSource" ref="dataSource" />
+	</bean>
+	
+	<tx:advice id="txAdvice" transaction-manager="transactionManager">
+		<tx:attributes>
+			<tx:method name="find*" read-only="true" rollback-for="Exception" />
+			<tx:method name="search*" read-only="true" rollback-for="Exception" />
+			<tx:method name="select*" read-only="true" rollback-for="Exception" />
+			<tx:method name="regist*" rollback-for="Exception" propagation="REQUIRED" isolation="SERIALIZABLE"/>
+			<tx:method name="modify*" rollback-for="Exception" propagation="REQUIRED" isolation="SERIALIZABLE" />
+			<tx:method name="remove*" rollback-for="Exception" propagation="REQUIRED" isolation="SERIALIZABLE" />
+		</tx:attributes>
+	</tx:advice>
+	
+	<bean id="projectAfterReturning" class="com.greedy.shortcut.alarm.aop.ProjectAfterReturningAdvice"/>
+	
+	<aop:config proxy-target-class="true">
+		<aop:pointcut id="serviceMethod"
+			expression="execution(* com.greedy.shortcut..*ServiceImpl.*(..))" />
+		<aop:advisor id="transactionAdvisor" pointcut-ref="serviceMethod"
+			advice-ref="txAdvice" />
+	</aop:config>
+	
+	<aop:config>
+		<aop:pointcut expression="execution(* com.greedy.shortcut.board.model.dao.ProjectMapper.insertProjectMember(..))" id="alarmPointcut"/>
+		<aop:aspect id="alarmAdvisor" ref="projectAfterReturning">
+			<aop:after-returning method="projectAfterReturning" pointcut-ref="alarmPointcut" returning="result"/>
+		</aop:aspect>
+	</aop:config>
+	
+	<mybatis-spring:scan 
+		base-package="com.greedy.shortcut.member.model.dao,
+		              com.greedy.shortcut.board.model.dao,
+		              com.greedy.shortcut.mywork.model.dao,
+		              com.greedy.shortcut.meeting.model.dao,
+		              com.greedy.shortcut.retrospect.model.dao,
+		              com.greedy.shortcut.messenger.model.dao,
+		              com.greedy.shortcut.alarm.model.dao
+		              "/>
+
+</beans>

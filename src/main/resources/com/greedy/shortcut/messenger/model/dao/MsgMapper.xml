@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greedy.shortcut.messenger.model.dao.MsgMapper">
+
+	<resultMap id="memberResultSet" type="MemberDTO">
+		<id column="MEM_NO" property="no" />
+		<result column="MEM_NAME" property="name" />
+		<result column="MEM_ID" property="email" />
+		<result column="MEM_PWD" property="password" />
+		<result column="PHONE" property="phone" />
+	</resultMap>
+
+	<resultMap id="ProjectResultSet" type="ProjectDTO">
+		<id column="PJT_NO" property="pjtNo" />
+		<result column="PJT_NAME" property="projectName" />
+		<result column="PJT_START_DATE" property="projectStartDate" />
+		<result column="PJT_DEL_YN" property="projectDelYN" />
+		<result column="MEM_NO" property="memberNo" />
+		<result column="PJT_END_DATE" property="projectEndDate" />
+		<result column="PJT_COLOR" property="projectColor" />
+	</resultMap>
+
+	<resultMap id="ProjectAuthorityResultSet" type="ProjectAuthorityDTO">
+		<id column="PA_NO" property="projectRoleNo" />
+		<result column="PJT_NO" property="pjtNo" />
+		<result column="MEM_NO" property="memberNo" />
+		<result column="PA_ROLE" property="projectRole" />
+	</resultMap>
+
+	<select id="selectMember" resultMap="memberResultSet" parameterType="hashmap">
+		SELECT 
+	       DISTINCT(D.MEM_NO)
+	     , D.MEM_NAME
+	     , D.MEM_ID 
+	  FROM ( SELECT
+	                B.MEM_NAME
+	              , C.MEM_NO
+	              , B.MEM_ID
+	           FROM PJT_AUTHORITY C
+	           JOIN MEMBER B ON (C.MEM_NO = B.MEM_NO)
+	          WHERE NOT B.MEM_NO = #{userNo}
+	            AND C.PJT_NO IN ( SELECT
+	                                   A.PJT_NO
+	                              FROM PJT_AUTHORITY A
+	                             WHERE A.MEM_NO =  #{userNo}
+	                           )
+	       )D
+	</select>
+	
+        
+</mapper>

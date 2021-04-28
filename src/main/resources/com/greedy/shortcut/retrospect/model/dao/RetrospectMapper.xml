@@ -1,0 +1,297 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.greedy.shortcut.retrospect.model.dao.RetrospectMapper">
+
+	<resultMap type="BacklogDTO" id="backlogResultMap">
+		<id property="blgNo" column="BLG_NO"/>
+		<result property="blgName" column="BLG_NAME"/>
+		<result property="blgPri" column="BLG_PRI"/>
+		<result property="blgEnrollDate" column="BLG_ENROLL_DATE"/>
+		<result property="sprEndDate" column="SPR_END_DATE"/>
+		<result property="pjtNo" column="PJT_NO"/>
+		<result property="blgDelYn" column="BLG_DEL_YN"/>
+		<result property="blgDemoMemo" column="BLG_DEMO_MEMO"/>
+		<result property="blgRefMemo" column="BLG_REF_MEMO"/>
+		<result property="sprNo" column="SPR_NO"/>
+	</resultMap>
+
+	<resultMap id="reviewResultMap" type="ReviewDTO">
+		<id property="reviewNo" column="REVIEW_NO"/>
+		<result property="reviewLikeTxt" column="REVIEW_LIKE_TXT"/>
+		<result property="reviewLearnTxt" column="REVIEW_LEARN_TXT"/>
+		<result property="reviewMissTxt" column="REVIEW_MISS_TXT"/>
+		<result property="sprNo" column="SPR_NO"/>
+		<result property="memNo" column="MEM_NO"/>
+		<result property="memName" column="MEM_NAME"/>
+	</resultMap>
+	
+	<resultMap id="ProjectResultSet" type="ProjectDTO">
+		<id column="PJT_NO" property="pjtNo"/>
+		<result column="PJT_NAME" property="projectName"/>
+		<result column="PJT_START_DATE" property="projectStartDate"/>
+		<result column="PJT_DEL_YN" property="projectDelYN"/>
+		<result column="MEM_NO" property="memberNo"/>
+		<result column="PJT_END_DATE" property="projectEndDate"/>
+		<result column="PJT_COLOR" property="projectColor"/>
+	</resultMap>
+	
+	 <resultMap id="AuthorityResultSet" type="ProjectAuthorityDTO">
+		<id column="PA_NO" property="projectRoleNo"/>	<!-- 권한고유번호 -->
+		<result column="PA_ROLE" property="projectRole"/><!-- 	회원권한 -->
+		<result column="PJT_NO" property="pjtNo"/>		<!-- 프로젝트번호  -->
+		<result column="MEM_NO" property="memberNo"/>	
+		<result column="MEM_ID" property="memberId"/>
+	</resultMap> 
+	
+	<resultMap id="sprintResultMap" type="ClientSprintDTO">
+		<id property="sprNo" column="SPR_NO"/>
+		<result property="sprName" column="SPR_NAME"/>
+		<result property="sprStartDate" column="SPR_START_DATE"/>
+		<result property="sprEndDate" column="SPR_END_DATE"/>
+		<result property="sprGoal" column="SPR_GOAL"/>
+		<result property="sprDelYn" column="SPR_DEL_YN"/>
+		<result property="blgNo" column="BLG_NO"/>
+	</resultMap>
+	
+	<resultMap id="selectPtjAndSprNameResultMapt" type="ProjectAndSprintDTO">
+		<association property="projectDTO" resultMap="ProjectResultSet"/>
+		<association property="sprintDTO" resultMap="sprintResultMap"/>
+	</resultMap>
+	
+	<sql id="reviewSql">
+		       REVIEW_NO
+		     , REVIEW_LIKE_TXT
+		     , REVIEW_LEARN_TXT
+		     , REVIEW_MISS_TXT
+		     , SPR_NO
+		     , MEM_NO
+	</sql>
+
+	<select id="selectFinishSprint" resultMap="backlogResultMap" parameterType="_int">
+		SELECT
+               A.BLG_NO
+             , A.BLG_NAME
+             , A.BLG_PRI
+             , A.BLG_ENROLL_DATE
+             , B.SPR_END_DATE
+             , A.PJT_NO
+             , A.BLG_DEL_YN
+             , A.BLG_DEMO_MEMO
+             , A.BLG_REF_MEMO
+          FROM BACKLOG A
+          JOIN SPRINT B ON(A.BLG_NO = B.BLG_NO)
+         WHERE A.PJT_NO = #{pjtNo}
+           AND B.SPR_END_DATE &lt; SYSDATE
+	</select>
+	
+	<select id="selectPagingFinishSprint" resultMap="backlogResultMap" parameterType="hashMap">
+ 		SELECT
+               D.RNUM
+             , D.BLG_NO
+             , D.BLG_NAME
+             , D.BLG_PRI
+             , D.BLG_ENROLL_DATE
+             , D.SPR_END_DATE
+             , D.SPR_NO
+             , D.PJT_NO
+             , D.BLG_DEL_YN
+             , D.BLG_DEMO_MEMO
+             , D.BLG_REF_MEMO
+         FROM (SELECT /*+ INDEX_DESC(C 엔터티1_PK2)*/
+                      ROWNUM RNUM
+                    , C.BLG_NO
+                    , C.BLG_NAME
+                    , C.BLG_PRI
+                    , C.BLG_ENROLL_DATE
+                    , C.SPR_END_DATE
+                    , C.SPR_NO
+                    , C.PJT_NO
+                    , C.BLG_DEL_YN
+                    , C.BLG_DEMO_MEMO
+                    , C.BLG_REF_MEMO
+                FROM (SELECT A.BLG_NO
+                           , A.BLG_NAME
+                           , A.BLG_PRI
+                           , A.BLG_ENROLL_DATE
+                           , B.SPR_END_DATE
+                           , B.SPR_NO
+                           , A.PJT_NO
+                           , A.BLG_DEL_YN
+                           , A.BLG_DEMO_MEMO
+                           , A.BLG_REF_MEMO
+                        FROM BACKLOG A
+                        JOIN SPRINT B ON(A.BLG_NO = B.BLG_NO)
+                       WHERE A.PJT_NO = #{pjtNo}
+                         AND B.SPR_END_DATE &lt; SYSDATE
+                       ORDER BY B.SPR_END_DATE DESC
+                    ) C
+       WHERE ROWNUM &lt;= #{endRow}
+              ) D
+         WHERE D.RNUM >= #{startRow} 
+         
+        <!--  SELECT
+               D.RNUM
+             , D.BLG_NO
+             , D.BLG_NAME
+             , D.BLG_PRI
+             , D.BLG_ENROLL_DATE
+             , D.SPR_END_DATE
+             , D.SPR_NO
+             , D.PJT_NO
+             , D.BLG_DEL_YN
+             , D.BLG_DEMO_MEMO
+             , D.BLG_REF_MEMO
+         FROM (SELECT ROWNUM RNUM
+                    , C.BLG_NO
+                    , C.BLG_NAME
+                    , C.BLG_PRI
+                    , C.BLG_ENROLL_DATE
+                    , C.SPR_END_DATE
+                    , C.SPR_NO
+                    , C.PJT_NO
+                    , C.BLG_DEL_YN
+                    , C.BLG_DEMO_MEMO
+                    , C.BLG_REF_MEMO
+                FROM (SELECT A.BLG_NO
+                           , A.BLG_NAME
+                           , A.BLG_PRI
+                           , A.BLG_ENROLL_DATE
+                           , B.SPR_END_DATE
+                           , B.SPR_NO
+                           , A.PJT_NO
+                           , A.BLG_DEL_YN
+                           , A.BLG_DEMO_MEMO
+                           , A.BLG_REF_MEMO
+                        FROM BACKLOG A
+                        JOIN SPRINT B ON(A.BLG_NO = B.BLG_NO)
+                       WHERE A.PJT_NO = #{pjtNo}
+                         AND B.SPR_END_DATE &lt; SYSDATE
+                       ORDER BY B.SPR_END_DATE DESC
+                    ) C
+              ) D
+         WHERE D.RNUM BETWEEN #{startRow} AND #{endRow} -->
+	</select>
+	
+	<select id="selectReviewRegistYn" parameterType="_int" resultType="_int"> 
+		SELECT COUNT(*)
+          FROM (SELECT A.REVIEW_LIKE_TXT
+             , A.REVIEW_LEARN_TXT
+             , A.REVIEW_MISS_TXT
+             , A.REVIEW_NO
+             , A.SPR_NO
+             , A.MEM_NO
+          FROM REVIEW A
+         WHERE A.SPR_NO = #{sprNo}
+        )
+	</select>
+	
+	<select id="selectPtjAndSprName" resultMap="selectPtjAndSprNameResultMapt" parameterType="_int">
+		SELECT
+               A.PJT_NAME
+             , A.PJT_NO
+             , C.SPR_NAME
+          FROM PROJECT A
+          JOIN BACKLOG B ON(A.PJT_NO = B.PJT_NO)
+          JOIN SPRINT C ON(B.BLG_NO = C.BLG_NO)
+         WHERE B.BLG_NO = #{blgNo}
+	</select>
+	
+	<select id="selectReview" resultMap="reviewResultMap" parameterType="_int">
+		SELECT
+               A.REVIEW_NO
+	         , A.REVIEW_LIKE_TXT
+             , A.REVIEW_LEARN_TXT
+             , A.REVIEW_MISS_TXT
+             , A.SPR_NO
+             , A.MEM_NO
+             , B.MEM_NAME
+          FROM REVIEW A
+          JOIN MEMBER B ON(A.MEM_NO = B.MEM_NO)
+         WHERE A.SPR_NO = (SELECT C.SPR_NO
+                             FROM SPRINT C
+                            WHERE C.BLG_NO = #{blgNo}
+                          )
+	</select>
+
+	<resultMap id="selectReviewAndProjectMemberResultMap" type="ReviewAndProjectMemberDTO">
+		<association property="projectAuthorityDTO" resultMap="AuthorityResultSet"/>
+		<association property="projectDTO" resultMap="ProjectResultSet"/>
+		<association property="memberDTO" javaType="MemberDTO">
+			<id property="no" column="MEM_NO"/>
+			<result property="email" column="MEM_ID"/>
+			<result property="name" column="MEM_NAME"/>
+			<result property="phone" column="PHONE"/>
+		</association>
+	</resultMap>
+	
+	<select id="selectReviewAndProjectMember" resultMap="selectReviewAndProjectMemberResultMap" parameterType="_int">
+		SELECT
+               A.PA_ROLE
+             , A.PJT_NO
+             , A.MEM_NO
+             , A.PA_NO
+             , B.PJT_NO
+             , B.PJT_NAME
+             , B.PJT_START_DATE
+             , B.PJT_DEL_YN
+             , B.MEM_NO
+             , B.PJT_END_DATE
+             , B.PJT_COLOR
+             , C.MEM_NAME
+          FROM PJT_AUTHORITY A
+          JOIN PROJECT B ON(A.PJT_NO = B.PJT_NO)
+          JOIN MEMBER C ON(A.MEM_NO = C.MEM_NO)
+         WHERE A.PJT_NO = #{pjtNo}
+	</select>
+
+	<select id="selectPjtNo" resultType="_int" parameterType="_int">
+		SELECT PJT_NO
+          FROM BACKLOG
+         WHERE BLG_NO = #{blgNo}
+	</select>
+
+	<insert id="registReview" parameterType="ReviewDTO">
+		INSERT
+		  INTO REVIEW
+		( 
+		  REVIEW_NO
+		, REVIEW_LIKE_TXT
+		, REVIEW_LEARN_TXT
+		, REVIEW_MISS_TXT
+		, SPR_NO
+		, MEM_NO
+		)
+		VALUES
+		(
+		  SEQ_REVIEW_NO.NEXTVAL
+		, #{reviewLikeTxt}
+		, #{reviewLearnTxt}
+		, #{reviewMissTxt}
+		, #{sprNo}
+		, #{memNo}
+		)
+	</insert>
+	
+	<update id="updateReview" parameterType="ReviewDTO">
+		UPDATE
+		       REVIEW
+		   SET REVIEW_LIKE_TXT = #{reviewLikeTxt}
+		     , REVIEW_LEARN_TXT = #{reviewLearnTxt}
+		     , REVIEW_MISS_TXT = #{reviewMissTxt}
+		 WHERE MEM_NO = #{memNo}
+	</update>
+	
+	<delete id="removeReview" parameterType="ReviewDTO">
+		DELETE
+		  FROM REVIEW
+		 WHERE MEM_NO = #{memNo}
+		   AND SPR_NO = #{sprNo}
+	</delete>
+	
+	<select id="selectSprintNo" parameterType="_int" resultType="_int">
+		SELECT SPR_NO
+          FROM SPRINT
+         WHERE BLG_NO = #{blgNo}
+	</select>
+	
+</mapper>

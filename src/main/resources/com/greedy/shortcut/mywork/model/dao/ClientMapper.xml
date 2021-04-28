@@ -1,0 +1,186 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.greedy.shortcut.mywork.model.dao.ClientMapper">
+
+	<resultMap id="projectResultMap" type="ClientProjectDTO">
+		<id property="pjtNo" column="PJT_NO"/>
+		<result property="pjtName" column="PJT_NAME"/>
+		<result property="pjtStartDate" column="PJT_START_DATE"/>
+		<result property="pjtDelYn" column="PJT_DEL_YN"/>
+		<result property="memNo" column="MEM_NO"/>
+		<result property="pjtEndDate" column="PJT_END_DATE"/>
+		<result property="pjtColor" column="PJT_COLOR"/>
+	</resultMap>
+	
+	<resultMap id="memberResultSet" type="MemberDTO">
+		<id column="MEM_NO" property="no" />
+		<result column="MEM_NAME" property="name" />
+		<result column="MEM_ID" property="email" />
+		<result column="MEM_PWD" property="password" />
+		<result column="PHONE" property="phone" />
+	</resultMap>
+	
+	<resultMap id="projectAndSprintResultMap" type="ClientProjectAndSprintDTO">
+		<id property="pjtNo" column="PJT_NO"/>
+		<result property="pjtName" column="PJT_NAME"/>
+		<result property="pjtStartDate" column="PJT_START_DATE"/>
+		<result property="pjtDelYn" column="PJT_DEL_YN"/>
+		<result property="memNo" column="MEM_NO"/>
+		<result property="pjtEndDate" column="PJT_END_DATE"/>
+		<result property="pjtColor" column="PJT_COLOR"/>
+		<collection property="sprintList" resultMap="sprintListResultMap"/>
+	</resultMap>
+	<resultMap id="sprintListResultMap" type="ClientSprintDTO">
+		<id property="sprNo" column="SPR_NO"/>
+		<result property="sprName" column="SPR_NAME"/>
+		<result property="sprStartDate" column="SPR_START_DATE"/>
+		<result property="sprEndDate" column="SPR_END_DATE"/>
+		<result property="sprGoal" column="SPR_GOAL"/>
+		<result property="sprDelYn" column="SPR_DEL_YN"/>
+		<result property="blgNo" column="BLG_NO"/>
+	</resultMap>
+	
+  	<resultMap id="ctcmResultMap" type="ClientCardTaskAndCardAndMemberDTO">
+  		<association property="cardTaskDTO" resultMap="cardTaskResultMap"/>
+  		<association property="cardDTO" resultMap="cardResultMap"/>
+  		<association property="memberDTO" resultMap="memberResultMap"/>
+  	</resultMap>
+  	<resultMap id="cardTaskResultMap" type="CardTaskDTO">
+  		<id property="crdNo" column="CRD_NO"/>
+  		<result property="progress" column="TK_PROGRESS"/>
+  		<result property="memNo" column="MEM_NO"/>
+  		<result property="startDate" column="TK_START_DATE"/>
+  		<result property="endDate" column="TK_END_DATE"/>
+	</resultMap>
+	<resultMap id="cardResultMap" type="ClientCardDTO">
+		<result property="crdTxt" column="CRD_TXT"/>
+	</resultMap>
+	<resultMap id="memberResultMap" type="MemberDTO">
+		<result property="name" column="MEM_NAME"/>
+	</resultMap>
+
+	<sql id="pjSql">
+	    	   PJT_NO
+   	         , PJT_NAME
+             , PJT_START_DATE
+	         , PJT_DEL_YN
+	         , MEM_NO
+	         , PJT_END_DATE
+	         , PJT_COLOR
+	</sql>
+	<sql id="spSql">
+	    	   SPR_NO
+   	         , SPR_NAME
+             , SPR_START_DATE
+	         , SPR_END_DATE
+	         , SPR_GOAL
+	         , SPR_DEL_YN
+	         , BLG_NO
+	</sql>
+
+ 	<select id="selectProjectList" resultMap="projectResultMap" parameterType="_int">
+		SELECT
+		       A.PJT_NO
+		     , A.PJT_NAME
+		     , A.PJT_START_DATE
+		     , A.PJT_DEL_YN
+		     , A.MEM_NO
+		     , A.PJT_END_DATE
+		     , A.PJT_COLOR
+		  FROM PROJECT A
+		 WHERE A.PJT_NO = #{pjtNo}
+		   AND A.PJT_DEL_YN = 'N'
+	</select> 
+	
+ 	<select id="selectProjectList2" resultMap="projectResultMap" parameterType="ClientProjectDTO">
+<!-- 		SELECT
+		       A.PJT_NO
+		     , A.PJT_NAME
+		     , A.PJT_START_DATE
+		     , A.PJT_DEL_YN
+		     , A.MEM_NO
+		     , A.PJT_END_DATE
+		     , A.PJT_COLOR
+		  FROM PROJECT A
+		  JOIN MEMBER B ON (A.MEM_NO = B.MEM_NO)
+		 WHERE A.PJT_DEL_YN = 'N'
+		   AND B.MEM_NO = (SELECT C.MEM_NO
+		                     FROM MEMBER C
+		                     JOIN PROJECT D ON(C.MEM_NO = D.MEM_NO)
+		                    WHERE D.PJT_NO = #{pjtNo}
+		 		          )  -->
+	</select> 
+
+	<select id="selectMemberInfo" resultMap="memberResultSet" parameterType="MemberDTO">
+        SELECT 
+               B.MEM_NO
+             , B.MEM_NAME
+             , B.MEM_ID
+             , B.MEM_PWD
+             , B.PHONE
+          FROM MEMBER B
+         WHERE B.MEM_ID = #{email}
+	</select>
+
+	<select id="selectOneProjectByPjNo" resultMap="projectAndSprintResultMap" parameterType="_int">
+		SELECT
+			   C.PJT_NO
+   	         , C.PJT_NAME
+             , C.PJT_START_DATE
+	         , C.PJT_DEL_YN
+	         , C.MEM_NO
+	         , C.PJT_END_DATE
+	         , C.PJT_COLOR
+			 , E.SPR_NO
+   	         , E.SPR_NAME
+             , E.SPR_START_DATE
+	         , E.SPR_END_DATE
+	         , E.SPR_GOAL
+	         , E.SPR_DEL_YN
+	         , E.BLG_NO
+		  FROM PROJECT C
+		  JOIN BACKLOG D ON (C.PJT_NO = D.PJT_NO)
+          JOIN SPRINT E ON (D.BLG_NO = E.BLG_NO)
+		 WHERE C.PJT_NO = #{pjtNo}
+		   AND E.SPR_END_DATE > SYSDATE
+	</select>
+
+	<select id="selectSprintCount" resultType="_int" parameterType="_int">
+        SELECT
+               COUNT(A.SPR_NO)
+          FROM SPRINT A
+          JOIN BACKLOG B ON(A.BLG_NO = B.BLG_NO)
+          JOIN PROJECT C ON(B.PJT_NO = C.PJT_NO)
+          JOIN MEMBER D ON(C.MEM_NO = D.MEM_NO)
+         WHERE C.PJT_NO = #{pjtNo}
+           AND A.SPR_END_DATE > SYSDATE
+	</select>
+	
+	<select id="selectBarInfo" resultMap="ctcmResultMap" parameterType="_int">
+		SELECT
+               A.TK_PROGRESS
+             , A.CRD_NO
+             , A.MEM_NO
+             , A.TK_START_DATE
+             , A.TK_END_DATE
+             , B.CRD_TXT
+             , E.MEM_NAME
+          FROM CRD_TASK A
+          JOIN CARD B ON(A.CRD_NO = B.CRD_NO)
+          JOIN BOARD C ON(B.BRD_NO = C.BRD_NO)
+          JOIN SPRINT D ON(D.SPR_NO = C.SPR_NO)
+          JOIN MEMBER E ON(E.MEM_NO = A.MEM_NO)
+         WHERE D.SPR_NO = #{sprNo}
+           AND D.SPR_END_DATE > SYSDATE
+	</select>
+	
+	<select id="selectProjectNuber" parameterType="String" resultType="_int">
+		SELECT DISTINCT A.PJT_NO
+          FROM PJT_AUTHORITY A
+          JOIN MEMBER B ON (A.MEM_NO = B.MEM_NO)
+          JOIN PROJECT C ON (A.PJT_NO = C.PJT_NO)
+         WHERE B.MEM_ID = #{email}
+           AND C.PJT_DEL_YN = 'N'
+	</select>
+
+</mapper>

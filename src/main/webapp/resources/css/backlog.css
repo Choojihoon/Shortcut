@@ -1,0 +1,168 @@
+@charset "UTF-8";
+.backlog_area{margin: 55px 100px;}
+.backlog_area .backlog_header_area{ margin-bottom: 20px;}
+.backlog_area .backlog_header_area .backlog_header{font-size: 25px; font-weight: bold;}
+.backlog_area .backlog_header_area .meeting_btn{float: right; display: inline-block; border:1px solid lightgray; border-radius: 8px; background-color: white; font-size: 18px;     width: 125px;
+    height: 40px;  line-height: 40px;  text-align: center; margin-left: 15px; color: lightgray;}
+.backlog_area .backlog_header_area .meeting_btn:hover{color:black; border: 1px solid black;}
+.backlog_area .backlog_header_area form{float:right;}
+
+.sprint_box_area{margin-bottom: 50px; height: 295px; padding-top: 40px; position: relative;}
+
+.sprint_box_area .sprint_text_btn{}
+.sprint_box_area .sprint_text_btn .sprint_text{ color: #ed1745; font-weight:bold;}
+.sprint_box_area .sprint_text_btn .btn_detail{float: right; background-color: white;}
+.sprint_box_area .sprint_text_btn .btn_detail.on{display: none;}
+
+.sprint_box_area .paging_area.type{ position: absolute; bottom: 0; width: 100%;}
+
+.sprint_box_area #pagingArea{ position: absolute; bottom: 0; width: 100%;}
+
+.sprint_box_area .backlog_line{border: 1px solid lightgray; margin: 10px 0;}
+
+.sprint_box_area .sprint_box{height: 100px; width: 100%; border: 1px solid lightgray;}
+.sprint_box_area .sprint_box.on{display: none;}
+.sprint_box_area .table_area{}
+.sprint_box_area .table_area .table_item{text-align: center;}
+.sprint_box_area .table_area .table_item.nk table{table-layout: fixed;}
+.sprint_box_area .table_area .table_item.nk td{overflow: hidden; text-overflow: ellipsis;  white-space: nowrap;}
+.sprint_box_area .table_area .table_item table{table-layout: fixed;}
+.sprint_box_area .table_area .table_item td{overflow: hidden; text-overflow: ellipsis;  white-space: nowrap; padding: 0 25px;}
+
+.sprint_box_area .table_area .table_item.nk .th_detail.type1{text-align: center!important; padding-bottom: 15px;}
+.sprint_box_area .table_area .table_item .row{margin: 0; margin-bottom: 5px; }
+.sprint_box_area .table_area .table_item .row .th_detail.type{text-align: center; padding-bottom:15px;}
+.sprint_box_area .table_area .table_item .row .table_detail{float:left;}
+.sprint_box_area .table_area .table_item .row .table_detail.type1{width: 7%}
+.sprint_box_area .table_area .table_item .row .table_detail.type2{width: 13%}
+.sprint_box_area .table_area .table_item .row .table_detail.type3{width: 34%}
+.sprint_box_area .table_area .table_item .row .table_detail.type4{width: 16%}
+
+
+.sprint_box_area .table_area .table_item .btn_detail{background-color: white; float: right;}
+.sprint_box_area .table_area .table_item .btn_detail.nk{background-color: white; float: none; color:lightgray; margin:4px 2px; border: 1px solid lightgray; height: 25px; line-height: 25px;}
+.sprint_box_area .table_area .table_item .btn_detail.nk:hover{color:black; border: 1px solid black;}
+
+.backlog_create_area{height: 280px; position: relative;}
+.backlog_create_area .create_sprint_btn{text-align: left;  color: #ed1745; font-weight:bold;}
+.backlog_create_area .create_sprint_btn .sprint_btn_detail{background-color: white;}
+.backlog_create_area .backlog_line{border: 1px solid lightgray; margin: 10px 0;}
+.backlog_create_area .create_backlog_btn{}
+.backlog_create_area .create_backlog_btn .backlog_btn_detail{border: 0; background-color: white;}
+
+.backlog_create_area .backlog_table_area{}
+.backlog_create_area .backlog_table_area .table_area{}
+.backlog_create_area .backlog_table_area .table_area .table_item{text-align: center;}
+.backlog_create_area .backlog_table_area .table_area .table_item table{table-layout: fixed;}
+.backlog_create_area .backlog_table_area .table_area .table_item td{ overflow: hidden; text-overflow: ellipsis;  white-space: nowrap; padding: 0 25px;}
+.backlog_create_area .backlog_table_area .table_area .table_item .btn_detail{background-color: white; color:lightgray; margin:4px 2px; border: 1px solid lightgray;}
+.backlog_create_area .backlog_table_area .table_area .table_item .btn_detail:hover{color:black; border: 1px solid black;}
+
+
+.backlog_create_area .backlog_table_area .table_area .table_item .th_detail.type{text-align: center; padding-bottom: 15px}
+.backlog_create_area .backlog_table_area .table_area .table_item .row{margin: 0; margin-bottom: 5px; border: 1px solid lightgray;}
+.backlog_create_area .backlog_table_area .table_area .table_item .row .table_detail{}
+/* .backlog_create_area .backlog_table_area .table_area .table_item .row .table_detail .btn_detail_retro{background-color: white;} */
+.backlog_create_area .backlog_table_area .table_area .table_item .row .table_detail.type1{width: 10%}
+.backlog_create_area .backlog_table_area .table_area .table_item .row .table_detail.type2{width: 5%}
+.backlog_create_area .backlog_table_area .table_area .table_item .row .table_detail.type3{width: 35%}
+.backlog_create_area .backlog_table_area .table_area .table_item .row .table_detail.type4{width: 25%}
+
+.btn_detail_retro{background-color: white;}
+
+.backlog_create_area #backlogPagingArea{ position: absolute; bottom: 0; width: 100%;}
+
+
+.pageBtn{background-color:white; border:0; margin:0 3px; color:lightgray;}
+.pageBtn:hover{color:black;}
+.pageBtn.on{color:black; font-weight: bold;}
+
+
+.retrospectBtn{background-color:white; color:lightgray; border: 1px solid lightgray; margin:4px 2px; width: 74px; height: 25px; line-height: 25px;}
+.retrospectBtn:hover{color:black; border: 1px solid black;}
+
+
+
+
+
+
+/* 모달 */
+.modal.fade{}
+.modal.fade .modal-dialog{max-width: 800px;}
+.modal.fade .modal-dialog .modal-content{}
+.modal.fade .modal-dialog .modal-content .modal-header{}
+.modal.fade .modal-dialog .modal-content .modal-header .header_detail{font-weight: bold; font-size: 17px;}
+
+.modal.fade .modal-dialog .modal-content .modal-body{}
+.modal.fade .modal-dialog .modal-content .modal-body .row{margin: 0;}
+.modal.fade .modal-dialog .modal-content .modal-body .row .backlog_info{float:left; width: 50%;}
+.modal.fade .modal-dialog .modal-content .modal-body .row .backlog_info .info_item{margin-bottom: 75px;}
+.modal.fade .modal-dialog .modal-content .modal-body .row .backlog_info .info_item .info_detail{ margin-bottom: 7px;font-weight: bold;}
+.modal.fade .modal-dialog .modal-content .modal-body .row.nk3 .backlog_info .info_item .info_detail.nk{font-weight: bold;}
+.modal.fade .modal-dialog .modal-content .modal-body .row .backlog_info .info_item .info_detail.nk{color: black;margin-bottom: 7px;font-weight: bold; }
+.modal.fade .modal-dialog .modal-content .modal-body .row .backlog_info .info_item .input_detail{ width: 80%; }
+
+.modal.fade .modal-dialog .modal-content .modal-body .row .backlog_textarea{float:left; width: 50%;}
+.modal.fade .modal-dialog .modal-content .modal-body .row .backlog_textarea .text_item{margin-bottom: 20px;}
+.modal.fade .modal-dialog .modal-content .modal-body .row .backlog_textarea .text_item .text_detail{ margin-bottom: 7px;font-weight: bold;}
+.modal.fade .modal-dialog .modal-content .modal-body .row.nk3 .backlog_textarea .text_item .info_detail.nk{ margin-bottom: 7px;font-weight: bold;}
+.modal.fade .modal-dialog .modal-content .modal-body .row .backlog_textarea .text_item .textarea_detail{width: 100%; height: 150px;}
+
+.modal.fade .modal-dialog .modal-content .modal-footer{}
+.modal.fade .modal-dialog .modal-content .modal-footer .btn_detail{background-color: white; border: 0;}
+
+
+/* 모달2 */
+
+.modal.fade{}
+.modal.fade .modal-dialog.type1{max-width: 500px;}
+.modal.fade .modal-dialog .modal-content{}
+.modal.fade .modal-dialog .modal-content .modal-header{}
+.modal.fade .modal-dialog .modal-content .modal-header .header_detail.type1{font-weight: bold; font-size: 21px;}
+
+.modal.fade .modal-dialog .modal-content .modal-body{}
+.modal.fade .modal-dialog .modal-content .modal-body .create_item{}
+.modal.fade .modal-dialog .modal-content .modal-body .create_item .item_name{}
+.modal.fade .modal-dialog .modal-content .modal-body .create_item .input_detail{width: 100%; height: 35px;}
+
+
+.modal.fade .modal-dialog .modal-content .modal-footer{}
+.modal.fade .modal-dialog .modal-content .modal-footer .btn_detail{background-color: white; border: 0;}
+
+
+
+/* 모달3 */
+
+.modal.fade{}
+.modal.fade .modal-dialog.type2{max-width: 500px;}
+.modal.fade .modal-dialog.type2 .modal-content{}
+.modal.fade .modal-dialog.type2 .modal-content .modal-header{}
+.modal.fade .modal-dialog.type2 .modal-content .modal-header .header_detail.type1{font-weight: bold; font-size: 21px;}
+.modal.fade .modal-dialog.type2 .modal-content .m_text{padding: 0 15px;}
+
+.modal.fade .modal-dialog.type2 .modal-content .modal-body{float:left;}
+.modal.fade .modal-dialog.type2 .modal-content .modal-body.type3{float:none;}
+.modal.fade .modal-dialog.type2 .modal-content .modal-body .sprint_item{ margin-bottom: 20px; }
+.modal.fade .modal-dialog.type2 .modal-content .modal-body .sprint_item .item_name{ font-weight: bold;}
+.modal.fade .modal-dialog.type2 .modal-content .modal-body .sprint_item .item_name.nk{}
+.modal.fade .modal-dialog.type2 .modal-content .modal-body .sprint_item .input_detail{width: 100%; height: 35px;}
+.modal.fade .modal-dialog.type2 .modal-content .modal-body .sprint_item .input_detail.nk{width: 100%; height: 35px;border: 0; outline: none;}
+.modal.fade .modal-dialog.type2 .modal-content .modal-body .sprint_item .textarea_detail{width: 100%; height: 150px;}
+
+.modal.fade .modal-dialog.type2 .modal-content .modal-footer{border:0;}
+.modal.fade .modal-dialog.type2 .modal-content .modal-footer .btn_detail{background-color: white; border: 0;}
+
+
+
+/* 모달 상세 페이지 */
+
+.modal.fade .modal-dialog .modal-content .row.detailpage{margin:0;}
+.modal.fade .modal-dialog .modal-content .row.detailpage .left_area{float: left;width:50%;}
+.modal.fade .modal-dialog .modal-content .row.detailpage .left_area .modal-header{ line-height: 40px;}
+.modal.fade .modal-dialog .modal-content .row.detailpage .left_area .modal-header .item_detail{letter-spacing: -2.5px; width:45%; float:left;}
+.modal.fade .modal-dialog .modal-content .row.detailpage .left_area .modal-header .input_detail.nk.type{width:55%; border: 0; outline: none;}
+
+.modal.fade .modal-dialog .modal-content .row.detailpage .right_area{float: left; width:50%;}
+.modal.fade .modal-dialog .modal-content .row.detailpage .right_area .modal-header{ line-height: 40px;}
+.modal.fade .modal-dialog .modal-content .row.detailpage .right_area .modal-header .item_detail{letter-spacing: -2.5px; width:45%;float:left;}
+.modal.fade .modal-dialog .modal-content .row.detailpage .right_area .modal-header .input_detail.nk.type{width:55%;}

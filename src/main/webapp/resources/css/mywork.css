@@ -1,0 +1,44 @@
+@charset "UTF-8";
+.mywork_area{margin: 50px 80px;}
+.mywork_area .mywork_header_list{}
+.mywork_area .mywork_header_list .row{margin: 0; border-bottom: 1px solid lightgray;}
+.mywork_area .mywork_header_list .row .header_list{border: 1px solid lightgray; width: 100px; text-align: center; color: gray; height: 40px; line-height: 40px; border-bottom: 0; border-radius: 7px; display: inline-block; text-decoration: none;}
+.mywork_area .mywork_header_list .row .header_list.on{color: black; font-weight: bold;}
+
+.mywork_area .chart_area{    margin-right: auto;  margin-left: auto;  width: 40%;}
+.mywork_area .chart_area .chart{}
+
+.container.schedule_area{}
+.container.schedule_area .sch_title{font-weight: bold; font-size: 23px; margin-top: 15px;}
+.container.schedule_area .schedule_line{border: 1px solid lightgray; margin: 15px 0;}
+.container.schedule_area .schedule_item{}
+.container.schedule_area .schedule_item .row{margin: 0; margin-bottom: 15px;}
+.container.schedule_area .schedule_item .row .item_title{float:left; padding: 10px 0; border-top: 1px solid lightgray; width: 15%; font-weight: bold; font-size: 18px; margin-right: 5%; }
+.container.schedule_area .schedule_item .row .item_type1{float:left; border: 1px solid lightgray; width: 30%; }
+.container.schedule_area .schedule_item .row .item_type1 .item_name{font-weight: bold; border-bottom: 1px solid lightgray; height: 40px; line-height: 40px; text-align: center;}
+.container.schedule_area .schedule_item .row .item_type1 .item_content{height: 100%;}
+.container.schedule_area .schedule_item .row .item_type2{float:left; border: 1px solid lightgray; width: 50%; }
+.container.schedule_area .schedule_item .row .item_type2 .item_name{font-weight: bold; border-bottom: 1px solid lightgray; height: 40px; line-height: 40px; text-align: center;}
+.container.schedule_area .schedule_item .row .item_type2 .item_content{height: 100%;}
+
+.container.schedule_area .schedule_item .row .item_type3{float:left; border: 1px solid lightgray; width: 10%; }
+.container.schedule_area .schedule_item .row .item_type3 .item_name{font-weight: bold; border-bottom: 1px solid lightgray; height: 40px; line-height: 40px; text-align: center;}
+.container.schedule_area .schedule_item .row .item_type3 .item_content{height: 90px;}
+.container.schedule_area .schedule_item .row .item_type4{float:left; border: 1px solid lightgray; width: 10%; }
+.container.schedule_area .schedule_item .row .item_type4 .item_name{font-weight: bold; border-bottom: 1px solid lightgray; height: 40px; line-height: 40px; text-align: center;}
+.container.schedule_area .schedule_item .row .item_type4 .item_content{height: 90px;}
+.container.schedule_area .schedule_item .row .item_type5{float:left; border: 1px solid lightgray; width: 50%; }
+.container.schedule_area .schedule_item .row .item_type5 .item_name{font-weight: bold; border-bottom: 1px solid lightgray; height: 40px; line-height: 40px; text-align: center;}
+.container.schedule_area .schedule_item .row .item_type5 .item_content{height: 90px;}
+.container.schedule_area .schedule_item .row .item_type6{float:left; border: 1px solid lightgray; width: 10%; }
+.container.schedule_area .schedule_item .row .item_type6 .item_name{font-weight: bold; border-bottom: 1px solid lightgray; height: 40px; line-height: 40px; text-align: center;}
+.container.schedule_area .schedule_item .row .item_type6 .item_content{height: 90px; padding:5px;}
+.container.schedule_area .schedule_item .row .item_type7{float:left; width: 100%; }
+.container.schedule_area .schedule_item .row .item_type7 .item_name{font-weight: bold; border-bottom: 1px solid lightgray; height: 40px; line-height: 40px; text-align: center;}
+.container.schedule_area .schedule_item .row .item_type7 .item_pagenavi{height: 15px; text-align:center}
+
+.pnbutton{background-color: white; margin:0 3px; border:0; color:lightgray;}
+.pnbutton:hover{color:black;}
+.pnbutton.on{font-weight:bold; color:black;}
+.remarkBtn{background-color: white; width:45%; margin-bottom: 2px; color:lightgray; border:1px solid lightgray;}
+.remarkBtn:hover{color:black; border:1px solid black;}

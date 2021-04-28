@@ -1,0 +1,145 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greedy.shortcut.board.model.dao.BoardMapper">
+
+	<resultMap id="memberResultSet" type="MemberDTO">
+		<id column="MEM_NO" property="no" />
+		<result column="MEM_NAME" property="name" />
+		<result column="MEM_ID" property="email" />
+		<result column="MEM_PWD" property="password" />
+		<result column="PHONE" property="phone" />
+	</resultMap>
+	
+	<resultMap id="boardResultSet" type="BoardDTO">
+		<id column="BRD_NO" property="brdNo"/>
+		<result column="BRD_NAME" property="brdName"/>
+		<result column="BRD_ENROLL_DATE" property="date"/>
+		<result column="SPR_NO" property="sprNo"/>
+		<result column="BRD_DEL_YN" property="del"/>
+		<result column="BRD_ORDER" property="brdOrder"/>
+	</resultMap>
+	
+	<resultMap id="AuthorityResultSet" type="ProjectAuthorityDTO">
+		<id column="PA_NO" property="projectRoleNo"/>		<!-- 권한고유번호 -->
+		<result column="PA_ROLE" property="projectRole"/>	<!-- 	회원권한 -->
+		<result column="PJT_NO" property="projectNo"/>		<!-- 프로젝트번호  -->
+		<result column="MEM_NO" property="memberNo"/>	
+	</resultMap> 
+	
+	<resultMap id="CardResultSet" type="CardDTO">
+		<id column="CRD_NO" property="no" />
+		<result column="CRD_NAME" property="title" />
+		<result column="CRD_ENROLL_DATE" property="EnrollDate" />
+		<result column="CRD_DEL_YN" property="delNo" />
+		<result column="BRD_NO" property="brdNo" />
+		<result column="CRD_ORDER" property="order" />
+		<result column="CRD_TYPE" property="type" />
+		<result column="MEM_NO" property="memNo" />
+		<result column="CRD_TXT" property="txt" />
+	</resultMap>
+	
+	<select id="selectMember" resultMap="memberResultSet" parameterType="_int">
+		SELECT
+		       A.MEM_NAME
+		  FROM MEMBER A
+		  JOIN PJT_AUTHORITY B ON (A.MEM_NO = B.MEM_NO)
+		 WHERE B.PJT_NO = #{pjtNo}
+	</select>
+	
+	<insert id="registCard" parameterType="CardDTO">
+        INSERT 
+          INTO CARD A
+        (
+          A.CRD_NO, A.CRD_NAME, A.MEM_NO, A.CRD_TXT
+        ) 
+		VALUES
+		(
+		  SEQ_MEM_NO.NEXTVAL, #{title}, #{memNo}, #{txt}
+		)
+	</insert>
+	
+	 <select id="selectboardList" resultMap="boardResultSet" parameterType="_int">
+ SELECT
+        A.BRD_NO
+      , A.BRD_NAME
+      , A.BRD_ENROLL_DATE
+      , A.SPR_NO
+      , A.BRD_DEL_YN
+      , A.BRD_ORDER
+   FROM BOARD A
+  WHERE A.BRD_DEL_YN = 'N'
+  	AND A.SPR_NO = #{sprNo}
+   <!--  AND A.BRD_ENROLL_DATE &lt;= SYSDATE -->
+    ORDER BY A.BRD_ORDER
+     
+ </select>
+ 
+ 	<update id="modifyBoardOrder" parameterType="_int">
+	 	UPDATE BOARD A
+	       SET A.BRD_ORDER = (SELECT B.BRD_ORDER
+	                            FROM BOARD B
+	                           WHERE B.BRD_NO = #{brdNo}
+	                          ) + 1
+	    WHERE A.BRD_NO = #{brdNo}
+ 	</update>
+ 
+	<insert id="insertnewBoard" parameterType="BoardDTO">
+		INSERT
+	      INTO BOARD A
+	    (
+	      A.BRD_NO
+	    , A.BRD_NAME
+	    , A.BRD_ENROLL_DATE
+	    , A.BRD_DEL_YN 
+	    , A.SPR_NO
+	    , A.BRD_ORDER
+	    )
+	    VALUES
+	    (
+	      SEQ_BRD_NO.NEXTVAL
+	    , #{brdName}
+	    , SYSDATE
+	    , 'N' 
+	    , #{sprNo}
+	    , #{brdOrder}
+	    )
+	</insert>
+	
+	<update id="deleteBoard" parameterType="BoardDTO">
+       UPDATE BOARD A
+          SET A.BRD_DEL_YN = 'Y'
+        WHERE A.BRD_NO = #{brdNo}
+	</update>
+	
+	<insert id="insertDeleteBoardHistory" parameterType="BoardDTO">
+       INSERT
+         INTO BOARD_HISTORY A
+       (
+         A.BRD_NO, A.BRD_NAME, A.UPDATE_DATE, A.BRD_HIS_NO
+       )
+       VALUES
+       (
+         #{brdNo}, #{brdName}, SYSDATE, SEQ_BRD_HIS_NO.NEXTVAL
+       )
+	</insert>
+	
+	<update id="modifyBoard" parameterType="BoardDTO">
+        UPDATE BOARD A
+           SET A.BRD_NAME = #{brdName}
+         WHERE A.BRD_NO = #{brdNo}
+	</update>
+	
+	<insert id="insertModifyBoardHistory" parameterType="BoardDTO">
+       INSERT
+         INTO BOARD_HISTORY A
+       (
+         A.BRD_NO, A.BRD_NAME, A.UPDATE_DATE, A.BRD_HIS_NO
+       )
+       VALUES
+       (
+         #{brdNo}, #{brdName}, SYSDATE, SEQ_BRD_HIS_NO.NEXTVAL
+       )
+	</insert>
+ </mapper>

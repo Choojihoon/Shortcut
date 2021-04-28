@@ -1,0 +1,118 @@
+@charset "UTF-8";
+
+.kanbanboard_area{background-color: #F3F3F3; height: 1000px; }
+.kanbanboard_area .row{margin: 0; padding-top: 45px;}
+
+.kanbanboard_area .row .project_info_area{width: 20%; padding: 15px;     float: left; }
+.kanbanboard_area .row .project_info_area .project_info{border: 1px solid black; border-radius: 15px; width: 100%; height: auto; background-color: white; padding: 15px;}
+
+.kanbanboard_area .row .project_info_area .project_info .info_item{margin-bottom: 10px;}
+.kanbanboard_area .row .project_info_area .project_info .info_item .item_name{font-size: 20px;  font-weight: bold;}
+.kanbanboard_area .row .project_info_area .project_info .info_item .item_detail{font-size: 18px;}
+
+.kanbanboard_area .row .kanban_item{ width: 20%;  padding: 15px; float:left;}
+.kanbanboard_area .row .kanban_item .kanbanboard{width: 100%;  border: 1px solid lightgray; background-color: white; padding: 0 15px 20px;}
+.kanbanboard_area .row .kanban_item .kanbanboard .kanbanboard_title{padding: 10px 0;  font-size: 20px;  font-weight: bold; border:0; text-align:center;     text-align: left;
+    display: inherit;}
+.kanbanboard_area .row .kanban_item .kanbanboard .kanbanboard_title{padding: 10px 0;  font-size: 15px;  font-weight: bold; border:0; text-align:center;}
+.kanbanboard_area .row .kanban_item .kanbanboard .insert_card{border: 1px solid lightgray;  padding: 10px;}
+.kanbanboard_area .row .kanban_item .kanbanboard .board_item{border: 1px solid lightgray;  margin-bottom: 20px; border-radius: 6px; padding: 5px;}
+.kanbanboard_area .row .kanban_item .kanbanboard .item.type1{font-size: 17px; }
+.kanbanboard_area .row .kanban_item .kanbanboard .item.type2{}
+.kanbanboard_area .row .kanban_item .kanbanboard .item.type2 .item_detail{border-radius: 9px; padding: 0 3px;}
+.kanbanboard_area .row .kanban_item .kanbanboard .item.type2 .item_detail.type{border: 1px solid #FBAAAA; background-color: #fbaaaa; padding: 3px; margin: 3px;}
+
+.kanbanboard_area .row .kanban_item .kanbanboard .item.type2 .item_detail.type1{border: 1px solid #B3D1EC; background-color: #B3D1EC;}
+.kanbanboard_area .row .kanban_item .kanbanboard .item.type2 .item_detail.type2{border: 1px solid #C1E1B2; background-color: #C1E1B2;}
+.kanbanboard_area .row .kanban_item .kanbanboard .item.type2 .item_detail.type3{border: 1px solid #E88D70; background-color: #E88D70;}
+
+.item.type3{font-size:15px; margin-left:20px;}
+
+.kanbanboard_area .row .kanban_item .kanbanboard.type1{border-top: 10px solid #E8BF70;}
+.kanbanboard_area .row .kanban_item .kanbanboard.type2{border-top: 10px solid #70E8D9;}
+.kanbanboard_area .row .kanban_item .kanbanboard.type3{border-top: 10px solid #E88D70;}
+.kanbanboard_area .row .kanban_item .kanbanboard.type4{border-top: 10px solid #8592D6;}
+.cardDetailText{width: 100%;}
+
+/*모달*/
+.modal.fade{}
+.modal.fade .modal-dialog{}
+.modal.fade .modal-dialog .modal-header.type{background-color: #75D5AC; padding:10px 15px; color: white; font-weight: bold;}
+.modal.fade .modal-dialog .modal-content{border: 1px solid #ed1745;}
+.modal.fade .modal-dialog .modal-content .modal-body{}
+.modal.fade .modal-dialog .modal-content .modal-body .row{margin: 0;  padding-bottom: 10px;   border-bottom: 1px solid lightgray; margin-bottom: 10px; justify-content: center;}
+.modal.fade .modal-dialog .modal-content .modal-body .row .modal_list{float: left; width: 25%; text-align: center;}
+.modal.fade .modal-dialog .modal-content .modal-body .row .modal_list .list_detail{text-decoration: none; color: black;}
+
+.modal.fade .modal-dialog .modal-content .modal-body .row .modal_list .list_detail.on{color:#FB3C00;}
+
+.modal.fade .modal-dialog .modal-content .modal-body .text_detail{width: 100%; height: 200px; border: 0;}
+.modal.fade .modal-dialog .modal-content .modal_footer{border-top: 1px solid lightgray; padding-top: 10px; height: 50px;}
+
+.modal.fade .modal-dialog .modal-content .modal_footer .modal_icon{float: left; padding-right: 10px; }
+.modal.fade .modal-dialog .modal-content .modal_footer .modal_icon .fas{font-size: 20px;}
+.modal.fade .modal-dialog .modal-content .modal_footer .btn_area{float: right;}
+.modal.fade .modal-dialog .modal-content .modal_footer .btn_area .upload_btn{border:1px solid #F47D7D; background-color: #F47D7D; color: white; width: 85px;  height: 30px; border-radius: 5px;}
+
+
+/* 일정 모달 */
+.modal.fade .modal-dialog .modal-content .modal-body .item_area{border-bottom: 1px solid lightgray; padding-bottom: 10px; margin-bottom: 10px;}
+.modal.fade .modal-dialog .modal-content .modal-body .item_area .far{width: 5%;}
+.modal.fade .modal-dialog .modal-content .modal-body .item_area .fas{width: 5%;}
+.modal.fade .modal-dialog .modal-content .modal-body .item_area .input_detail{width: 100%;}
+.modal.fade .modal-dialog .modal-content .modal-body .item_area .input_detail.type1{width: 70%;}
+.modal.fade .modal-dialog .modal-content .modal-body .item_area .input_detail.type2{width: 22%; background-color: white;}
+.modal.fade .modal-dialog .modal-content .modal-body .item_area .input_detail.type3{width: 94%;}
+.modal.fade .modal-dialog .modal-content .modal-body .item_area .input_detail.type4{width: 40%;}
+.modal.fade .modal-dialog .modal-content .modal-body .item_area .input_detail.type5{width: 25%;}
+.modal.fade .modal-dialog .modal-content .modal-body .item_area .select_detail{width: 50%;}
+.modal.fade .modal-dialog .modal-content .modal-body .item_area.type{border-bottom: 0;}
+
+
+/* 업무 모달 */
+
+.modal.fade .modal-dialog .modal-content .modal-body .item_area .fa-user-circle{font-size: 30px; width: 10%;}
+.modal.fade .modal-dialog .modal-content .modal-body .item_area .login_info{width: 80%; display: inline-block; text-align: left; position: relative;
+    top: 7px;}
+
+.modal.fade .modal-dialog .modal-content .modal-body .item_area .login_info .info_detail.type{font-size: 9px; color: gray;}
+.modal.fade .modal-dialog .modal-content .modal-body .item_area .row.type{margin: 0; text-align: center; border: 0; padding: 0;}
+.modal.fade .modal-dialog .modal-content .modal-body .item_area .row .progress_list{border:1px solid #969696; width: 70px;  height: 30px; margin-left: 10px; border-radius:5px; color:#969696;}
+.modal.fade .modal-dialog .modal-content .modal-body .item_area .row .progress_list_selected{border:1px solid #969696; width: 70px;  height: 30px; margin-left: 10px; border-radius:5px; background-color: #4aaefb; color:white;}
+.modal.fade .modal-dialog .modal-content .modal-body .item_area.type .text_detail.type{height: 100px;}
+.modal.fade .modal-dialog .modal-content .modal-body .item_area .fas.fa-list-ul{width: 100%;}
+.modal.fade .modal-dialog .modal-content .modal-body .item_area .option_detail{background-color: red}
+
+
+/* 한미화 */
+
+/* 보드 드래그앤드롭 */
+.card{margin-left: auto; margin-right: auto;}
+/* 이동 타겟 */
+.card-placeholder{margin: 1em 1em 1em 1em; height: 10px; margin-left: auto; margin-right:auto; background-color: yellowgreen;}
+/* 마우스 포인터 손꾸락 */
+.card:not(.no-mov) .card-header{cursor:pointer; background-color: #00ff0000;}
+.card{folat:left;}
+
+/* 보드 드래그앤드롭 */
+.board-placeholder{border: 1px dotted; margin: 0 1em 1em 0; height: 10px; background-color:darkgray; pisition:absolute left:100px; folat:left;}
+/* 마우스 포인터을 손가락으로 변경 */
+.board-header{cursor:pointer; justify-content:center;}
+.newInsert{cursor:pointer;}
+/* 일정, 업무 버튼 */
+.work_btn.on{display: none;}
+.calendar_btn.on {display: none;}
+/* 업무 진행도 버튼 */
+.btn-group .button{background-color: #00ff0000; border: 1px solid green; color: black; padding: 5px 12px; text-align: center; text-decoration: none; display: inline-block; font-size: 16px; cursor: pointer; float: left;}
+.btn-group .button on{background-color: #4CAF50;}
+.btn-group .button:not(:last-child){border-right: none;}
+.kanbanboard_area .row .kanban_item .kanbanboard .kanbanboard_title .fa-ellipsis-v{text-align: right; display: inline; padding-left: 60%;}
+
+
+
+
+
+
+
+
+

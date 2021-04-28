@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greedy.shortcut.meeting.model.dao.MeetingMapper">
+	
+	<resultMap type="MeetingDTO" id="MeetingResultSet">
+		<id column="MEET_NO" property="meetingNo"/>
+		<result column="MEET_NAME" property="meetingName"/>
+		<result column="MEET_TXT" property="meetingText"/>
+		<result column="MEET_ENROLL_DATE" property="enrollDate"/>
+		<result column="MEET_DEL_YN" property="status"/>
+		<result column="SPR_NO" property="sprintNo"/>
+		<result column="PJT_NO" property="pjtNo"/>
+	</resultMap>
+	
+	<resultMap type="MemberDTO" id="MemberResultSet">
+		<id column="MEM_NO" property="no" />
+		<result column="MEM_NAME" property="name" />
+		<result column="MEM_ID" property="email" />
+		<result column="MEM_PWD" property="password" />
+		<result column="PHONE" property="phone" />
+		<result column="PJT_NO" property="projectNo"/>
+	</resultMap>
+	
+	 <resultMap id="AuthorityResultSet" type="ProjectAuthorityDTO">
+		<id column="PA_NO" property="projectRoleNo"/>	<!-- 권한고유번호 -->
+		<result column="PA_ROLE" property="projectRole"/><!-- 	회원권한 -->
+		<result column="PJT_NO" property="projectNo"/>		<!-- 프로젝트번호  -->
+		<result column="MEM_NO" property="memberNo"/>	
+	</resultMap> 
+	
+	<resultMap type="AttendListDTO" id="AttendListResultSet">
+		<id column="MEET_NO" property="meetingNo"/>
+		<result column="MEM_NO" property="memberNo"/>
+	</resultMap>
+	
+	<resultMap type="ProjectDTO" id="ProjectResultSet">
+		<id column="PJT_NO" property="pjtNo"/>
+		<result column="PJT_NAME" property="projectName"/>
+		<result column="PJT_START_DATE" property="projectStartDate"/>
+		<result column="PJT_DEL_YN" property="projectDelYN"/>
+		<result column="MEM_NO" property="memberNo"/>
+		<result column="PJT_END_DATE" property="projectEndDate"/>
+		<result column="PJT_COLOR" property="projectColor"/>
+	</resultMap>
+	
+	<resultMap type="MeetingHistoryDTO" id="MeetingHistoryResultSet">
+		<id column="MEET_NO" property="meetNo"/>
+		<result column="MEET_NAME" property="meetName"/>
+		<result column="MEET_TXT" property="meetText"/>
+		<result column="UPDATE_DATE" property="updateDate"/>
+		<result column="MEET_HIS_NO" property="meetHisNo"/>
+	</resultMap>
+	
+	<resultMap type="SprintDTO" id="SprintResultMap">
+		<id property="sprNo" column="SPR_NO"/>
+		<result property="sprName" column="SPR_NAME"/>
+		<result property="sprStardDate" column="SPR_START_DATE"/>
+		<result property="sprEndDate" column="SPR_END_DATE"/>
+		<result property="sprGoal" column="SPR_GOAL"/>
+		<result property="sprDelYn" column="SPR_DEL_YN"/>
+		<result property="sprBlgNo" column="BLG_NO"/>
+	</resultMap>
+	
+	<insert id="insertMeeting" parameterType="MeetingDTO">
+		INSERT
+		  INTO MEETING A
+		(
+		  A.MEET_NO, A.MEET_NAME, A.MEET_TXT
+		, A.MEET_ENROLL_DATE, SPR_NO ,PJT_NO
+		)  
+		VALUES
+		(
+		  SEQ_MEET_NO.NEXTVAL, #{meetingName}, #{meetingText}
+		, #{enrollDate}, #{sprintNo}, #{pjtNo}
+		)
+	</insert>
+	
+	<select id="selectProjectMember" resultMap="MemberResultSet" parameterType="Hashmap">
+		SELECT
+		       A.MEM_NAME
+		     , A.MEM_NO 
+		  FROM MEMBER A 
+		  JOIN PJT_AUTHORITY B ON (B.MEM_NO = A.MEM_NO)
+		 WHERE B.PJT_NO = #{pjtNo}
+	</select>
+	
+	
+	
+	<select id="selectMeeting" parameterType="MeetingDTO" resultMap="MeetingResultSet">
+		SELECT
+                A.RNUM
+              , A.MEET_NO                
+           FROM (SELECT ROWNUM RNUM
+                      , B.MEET_NO                          
+                   FROM (SELECT C.MEET_NO                              
+                           FROM MEETING C                       
+                          ORDER BY C.MEET_NO DESC
+                        ) B
+                 ) A
+             WHERE A.RNUM BETWEEN 1 AND 1
+	</select>
+	
+	<insert id="insertProjectMember" parameterType="AttendListDTO">
+	     INSERT
+		        INTO MEETING_ATTEND_LIST A
+		        (
+		          A.MEET_NO, A.MEM_NO
+		        )
+		        VALUES
+		        (
+		         #{meetingNo}, #{memberNo}
+		        )
+	</insert>
+	
+	<select id="selectMeetingList" parameterType="MeetingDTO" resultMap="MeetingResultSet">
+		SELECT
+		       A.MEET_NO
+		     , A.MEET_NAME
+		     , A.MEET_TXT
+		     , A.MEET_ENROLL_DATE
+		     , A.MEET_DEL_YN
+		     , A.SPR_NO     
+		  FROM MEETING A
+		 WHERE A.MEET_DEL_YN = 'N'
+		   AND A.PJT_NO = #{pjtNo}
+	</select>
+	
+	<select id="selectMeetingDetail" parameterType="MeetingDTO" resultMap="MeetingResultSet">
+
+		SELECT
+		       A.MEET_NO
+		     , A.MEET_NAME
+		     , A.MEET_TXT
+		     , A.MEET_ENROLL_DATE
+		     , A.MEET_DEL_YN
+		     , A.SPR_NO
+		     , A.PJT_NO  
+		     , B.SPR_NAME   
+		  FROM MEETING A
+		  JOIN SPRINT B ON (A.SPR_NO = B.SPR_NO)
+		 WHERE A.MEET_NO = #{meetingNo}
+	</select>
+	
+	<select id="selectMeetingDetailMember"  resultMap="MemberResultSet">
+		 
+		SELECT
+			  B.MEM_NO
+			, B.MEM_NAME
+	    FROM MEETING_ATTEND_LIST A 
+	    JOIN MEMBER B ON (A.MEM_NO= B.MEM_NO)
+	   WHERE A.MEET_NO = #{meetingNo}
+
+	</select>
+	
+	<update id="deletedMeeting" parameterType="MeetingDTO">
+		UPDATE MEETING A
+		   SET A.MEET_DEL_YN = 'Y'
+		 WHERE A.MEET_NO = #{meetingNo}
+	</update>
+	
+	<update id="modifyComplete" parameterType="MeetingDTO">
+		UPDATE MEETING A
+		   SET A.MEET_NAME = #{modifyTitle}
+	         , A.MEET_TXT = #{modifyContent}
+	     WHERE A.MEET_NO = #{meetingNo}   
+	</update>
+	
+
+	<select id="selectSprintNumber" resultMap="SprintResultMap">
+		SELECT
+		       A.SPR_NO
+		     , A.SPR_NAME
+		  FROM SPRINT A
+		  JOIN BACKLOG B ON (A.BLG_NO = B.BLG_NO)
+		 WHERE PJT_NO = #{pjtNo}
+	</select>
+	
+	<select id="selectSprintName" resultMap="SprintResultMap">
+		SELECT
+		       A.SPR_NO
+		     , A.SPR_NAME
+		  FROM SPRINT A
+		  JOIN MEETING M ON (A.SPR_NO = M.SPR_NO)
+		 WHERE M.MEET_NO = #{meetingNo}
+	</select>
+</mapper>

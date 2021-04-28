@@ -1,0 +1,23 @@
+@charset "UTF-8";
+.retrospect_area{margin: 50px;}
+.retrospect_area .retrospect_header{border-bottom: 1px solid lightgray; margin-bottom: 30px;}
+.retrospect_area .retrospect_header .header_text1{font-weight: bold; font-size: 20px;}
+.retrospect_area .retrospect_header .header_text2{padding-left: 20px;}
+
+
+.retrospect_area .time_area{ width: 70%; margin: 0 auto; }
+.retrospect_area .time_area .row{margin: 0;}
+.retrospect_area .time_area .row .time_item{margin: 0 30px;}
+.retrospect_area .time_area .row .time_item .start_time{}
+.retrospect_area .time_area .row .time_item .end_time{}
+
+.retrospect_area .retrospect_content{width: 70%; margin: 0 auto; margin-top: 50px;}
+.retrospect_area .retrospect_content table{border: 1px solid lightgray; width: 100%; border-collapse: collapse; text-align: center;}
+.retrospect_area .retrospect_content tr, th, td{border: 1px solid lightgray; }
+.retrospect_area .retrospect_content th{text-align:center; line-height:48px;}
+.retrospect_area .retrospect_content .text_detail{width: 100%; height: 100%; border: 0;}
+.retrospect_area .retrospect_content .save_btn{text-align: right; margin-top: 25px;}
+.retrospect_area .retrospect_content .save_btn .btn_detail{background-color: white; width: 80px; height: 30px; line-height: 30px;}
+
+
+

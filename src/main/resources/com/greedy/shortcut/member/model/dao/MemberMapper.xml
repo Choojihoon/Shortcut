@@ -1,0 +1,67 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper
+    PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+    "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.greedy.shortcut.member.model.dao.MemberMapper">
+
+	<resultMap id="memberResultSet" type="MemberDTO">
+		<id column="MEM_NO" property="no" />
+		<result column="MEM_NAME" property="name" />
+		<result column="MEM_ID" property="email" />
+		<result column="MEM_PWD" property="password" />
+		<result column="PHONE" property="phone" />
+		<result column="GIT_URL" property="gitUrl" />
+		
+	</resultMap>
+	
+	<insert id="registMember" parameterType="MemberDTO">
+        INSERT 
+          INTO MEMBER A
+        (
+          A.MEM_NO, A.MEM_ID, A.MEM_PWD
+        , A.MEM_NAME, A.PHONE 
+        ) 
+		VALUES
+		(
+		  SEQ_MEM_NO.NEXTVAL, #{email}, #{password}
+		, #{name}, #{phone}
+		)
+	</insert>
+	
+	<select id="selectUserInfoOne" resultMap="memberResultSet" parameterType="MemberDTO">
+        SELECT 
+               A.MEM_NO
+             , A.MEM_NAME
+             , A.MEM_ID
+             , A.MEM_PWD
+             , A.PHONE
+             , A.GIT_URL
+          FROM MEMBER A 
+         WHERE A.MEM_ID = #{email} 
+	</select>
+	
+	<select id="selectUserInfoCount" resultMap="memberResultSet" parameterType="MemberDTO">
+        SELECT 
+               *
+          FROM MEMBER A
+         WHERE EXISTS
+         (
+           SELECT * FROM MEMBER B
+           WHERE A.MEM_ID = #{email}
+         )
+	</select>
+	
+	<update id="ModifyMember">
+		UPDATE MEMBER A 
+		   SET A.MEM_NAME = #{name}
+		     , A.PHONE = #{phone}
+		 WHERE A.MEM_ID = #{email}
+	</update>
+	
+	<update id="updateMember">
+		UPDATE MEMBER A 
+		   SET A.MEM_PWD = #{password}
+		 WHERE A.MEM_ID = #{email}
+	</update>
+		
+</mapper>

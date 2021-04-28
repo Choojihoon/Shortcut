@@ -1,0 +1,80 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.greedy.shortcut.alarm.model.dao.AlarmMapper">
+
+	<resultMap id="selectGeneralResultMap" type="AlertDTO">
+		<id property="altNo" column="ALT_NO"/>
+		<result property="altEnrollDate" column="ALT_ENROLL_DATE"/>
+		<result property="altTxt" column="ALT_TXT"/>
+		<result property="altUri" column="ALT_URI"/>
+		<result property="altDelYn" column="ALT_DEL_YN"/>
+		<result property="altReadYn" column="ALT_READ_YN"/>
+		<result property="memNo" column="MEM_NO"/>
+	</resultMap>
+
+	<select id="selectGitUrl" resultType="String" parameterType="_int">
+		SELECT
+		       GIT_URL
+		  FROM MEMBER
+		 WHERE MEM_NO = #{memNo}
+	</select>
+	
+	<update id="registGitUrl" parameterType="hashmap">
+		UPDATE
+		       MEMBER
+		   SET GIT_URL = #{githubInfo}
+		 WHERE MEM_NO = #{memNo}
+	</update>
+
+	<update id="removeGitUrl" parameterType="_int">
+		UPDATE
+               MEMBER
+           SET GIT_URL = ''
+         WHERE MEM_NO = #{memNo}
+	</update>
+
+	<update id="modifyGitUrl" parameterType="hashmap">
+		UPDATE
+               MEMBER
+           SET GIT_URL = #{modifyUrl}
+         WHERE MEM_NO = #{memNo}
+	</update>
+
+	<select id="countReceiveNote" parameterType="String" resultType="String">
+	    SELECT
+               COUNT(*)
+	 	  FROM ALERT A
+	 	 WHERE A.ALT_DEL_YN = 'N' 
+	 	   AND A.ALT_READ_YN = 'N'
+	       AND A.MEM_NO = #{payload}
+	</select>
+	
+	<select id="selectGeneralAlarmList" parameterType="_int" resultMap="selectGeneralResultMap">
+		SELECT
+		       ALT_NO
+	 	     , ALT_ENROLL_DATE
+	 	     , ALT_TXT
+	 	     , ALT_URI
+	 	     , ALT_DEL_YN
+	 	     , ALT_READ_YN
+	 	     , MEM_NO
+		  FROM ALERT
+		 WHERE MEM_NO = #{memNo}
+		   AND ALT_DEL_YN = 'N'
+	</select>
+	
+	<update id="modifyAlarmRead" parameterType="_int">
+		UPDATE
+		       ALERT
+		   SET ALT_READ_YN = 'Y'
+		 WHERE MEM_NO = #{memNo}
+	</update>
+	
+	<update id="modifyAlarmRemove" parameterType="_int">
+		UPDATE
+		       ALERT
+		   SET ALT_DEL_YN = 'Y'
+		 WHERE ALT_NO = #{altDelNo}
+	</update>
+
+</mapper>

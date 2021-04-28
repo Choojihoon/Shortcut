@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.greedy.shortcut.alarm.model.dao.AlarmAopMapper">
+
+	 <resultMap id="ProjectResultMap" type="ProjectDTO">
+		<id column="PJT_NO" property="pjtNo"/>
+		<result column="PJT_NAME" property="projectName"/>
+		<result column="PJT_START_DATE" property="projectStartDate"/>
+		<result column="PJT_DEL_YN" property="projectDelYN"/>
+		<result column="MEM_NO" property="memberNo"/>
+		<result column="PJT_END_DATE" property="projectEndDate"/>
+		<result column="PJT_COLOR" property="projectColor"/>
+	</resultMap>
+
+	 <select id="selectAlarmPjtName" parameterType="_int" resultMap="ProjectResultMap">
+	 	SELECT
+               PJT_NAME
+             , MEM_NO
+          FROM PROJECT
+         WHERE PJT_NO = #{pjtNo}
+	 </select>
+	 
+	 <insert id="registProjectAlarm" parameterType="hashmap">
+	 	INSERT
+	 	  INTO ALERT
+	 	(
+	 	  ALT_NO
+	 	, ALT_ENROLL_DATE
+	 	, ALT_TXT
+	 	, ALT_URI
+	 	, ALT_DEL_YN
+	 	, ALT_READ_YN
+	 	, MEM_NO
+	 	)
+	 	VALUES
+	 	(
+	 	  SEQ_ALT_NO.NEXTVAL
+	 	, SYSDATE
+	 	, #{altTxt}
+	 	, #{altUri}
+	 	, 'N'
+	 	, 'N'
+	 	, #{memNo}
+	 	)
+	 </insert>
+
+</mapper>

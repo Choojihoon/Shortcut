@@ -1,0 +1,62 @@
+@charset "UTF-8";
+.messenger_area{margin: 20px;}
+.messenger_area .row{margin: 0;}
+.messenger_area .row .messenger_left_area{width: 40%; padding: 30px; box-shadow: 0 0px 31px 10px lightgrey inset; height: 950px;}
+.messenger_area .row .messenger_left_area .team_member_list{}
+.messenger_area .row .messenger_left_area .team_member_list .row{margin: 0; line-height: 40px;}
+.messenger_area .row .messenger_left_area .team_member_list .row .left_header{font-weight: bold; font-size: 19px; padding-right: 15px;}
+.messenger_area .row .messenger_left_area .team_member_list .row .search_area{ height: 40px; position: relative;}
+.messenger_area .row .messenger_left_area .team_member_list .row .search_area .input_detail{padding-left: 40px; border-radius: 5px;}
+.messenger_area .row .messenger_left_area .team_member_list .row .search_area .fa-search{position: absolute; top: 15px; left: 14px;}
+.messenger_area .row .messenger_left_area .team_member_list .messenger_line{border: 1px solid lightgray;  margin: 10px 0 20px;}
+.messenger_area .row .messenger_left_area .team_member_list .team_info_area{height: 800px;}
+.messenger_area .row .messenger_left_area .team_member_list .team_info_area .row{margin: 0; border: 1px solid lightgray; padding: 5px 10px; text-align: center; margin-bottom: 10px;}
+.messenger_area .row .messenger_left_area .team_member_list .team_info_area .row .team_info_type1{width: 20%;}
+.messenger_area .row .messenger_left_area .team_member_list .team_info_area .row .team_info_type1 .fa-user-circle{font-size: 20px; padding-right: 10px;}
+.messenger_area .row .messenger_left_area .team_member_list .team_info_area .row .team_info_type2{width: 50%;}
+.messenger_area .row .messenger_left_area .team_member_list .team_info_area .row .team_info_type3{width: 20%;}
+.messenger_area .row .messenger_left_area .team_member_list .team_info_area .row .team_info_type4{width: 10%;}
+
+
+
+.messenger_area .row .messenger_right_area{width: 60%; padding: 30px; box-shadow: 0 0px 31px 10px #FFCCD7 inset; margin: 0 auto; }
+.messenger_area .row .messenger_right_area .messenger_list{}
+.messenger_area .row .messenger_right_area .messenger_list .row{margin: 0; }
+.messenger_area .row .messenger_right_area .messenger_list .row .item_list{float:left; width:33.3333%; text-align:center;}
+.messenger_area .row .messenger_right_area .messenger_list .row .item_list .item_detail{ font-weight: bold;  font-size: 30px;  color: #ED1745; text-align: center;}
+.messenger_area .row .messenger_right_area .messenger_list .messenger_line{border: 1px solid lightgray;  margin: 20px 0;}
+.messenger_area .row .messenger_right_area .messenger_list .send_area{border-radius: 10px; border: 1px solid lightgray; width: 100%;  padding: 20px 40px;}
+.messenger_area .row .messenger_right_area .messenger_list .send_area .row{margin: 0; border-bottom: 1px solid lightgray; padding-bottom: 10px; line-height: 30px;
+ margin-bottom: 15px;}
+.messenger_area .row .messenger_right_area .messenger_list .send_area .row .send_itme{float:left; font-size: 25px; padding: 0 15px; width: 25%;}
+.messenger_area .row .messenger_right_area .messenger_list .send_area .row .send_itme_detail{ float:left; font-size: large;}
+
+.messenger_area .row .messenger_right_area .messenger_list .send_area .row.type{text-align: center; border: 0; height: 100%;}
+.messenger_area .row .messenger_right_area .messenger_list .send_area .row.type .textarea_detail{ width: 100%; height: 400px;}
+.messenger_area .row .messenger_right_area .messenger_list .send_area .row .btn_area{text-align:center;}
+.messenger_area .row .messenger_right_area .messenger_list .send_area .row .send_btn{ height: 50px;
+    width: 10%;  background-color: white;  border-radius: 10px;  position: absolute;  right: 0; bottom: 0;}
+
+
+
+/* 받은 쪽지함 */
+.messenger_area .row .messenger_right_area .messenger_receiver_area{padding: 10px 15px; height: 750px;}
+.messenger_area .row .messenger_right_area .messenger_receiver_area .row.type{margin: 0;  margin-bottom: 10px; text-align: center;}
+.messenger_area .row .messenger_right_area .messenger_receiver_area .row.type .recv_header{float:left; width:16.6666%; text-align: center; font-size: 19px; font-weight: bold;  padding: 10px; background-color: #eb98aa; color: white;}
+.messenger_area .row .messenger_right_area .messenger_receiver_area .row {margin-bottom: 10px;}
+.messenger_area .row .messenger_right_area .messenger_receiver_area .row .recv_item{width: 15%; text-align: center; font-size: 19px; font-weight: bold;  padding: 10px; background-color: ghostwhite;}
+
+
+
+/* 검색 */
+.msg_search_area{text-align: center;}
+.msg_search_area .row{margin: 0;}
+.msg_search_area .row .input_detail{}
+.msg_search_area .row .btn_detail{background-color: white;}
+
+
+
+
+
+
+

@@ -1,0 +1,180 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.greedy.shortcut.mywork.model.dao.MyworkMapper">
+
+ <!--    /*1. 전체 업무 카드 개수  */ // selectTaskTypeCount (memNo, 0)
+		/*2. 요청 전체 카드 개수 */ // selectTaskTypeCount(memNo, int type)
+		/*3. 진행 전체 카드 개수  */ // selectTaskTypeCount(memNo, int type)
+		/*4. 완료 전체 카드 개수  */ // selectTaskTypeCount(memNo, int type)
+		/*5. 보류 전체 카드 개수  */ // selectTaskTypeCount(memNo, int type)
+		/*6. 요청 카드 3개 (최초 1번부터 3번까지) */ // selectTaskTypeList(memNo, int type, PageNum)
+		//   (PageNum*3 - 2 ) ~ (PageNum*3) 번호까지 조회 해서 전달  
+		/*7. 완료 카드 3개 (최초 1번부터 3번까지) */ // selectTaskTypeList(memNo, int type, PageNum)
+		/*8. 진행 카드 3개 (최초 1번부터 3번까지) */ // selectTaskTypeList(memNo, int type, PageNum)
+		/*9. 보류 카드 3개 (최초 1번부터 3번까지) */ // selectTaskTypeList(memNo, int type, PageNum)
+ -->
+	<resultMap id="memberResultSet" type="MemberDTO">
+		<id column="MEM_NO" property="no" />
+		<result column="MEM_NAME" property="name" />
+		<result column="MEM_ID" property="email" />
+		<result column="MEM_PWD" property="password" />
+		<result column="PHONE" property="phone" />
+	</resultMap>
+
+	<!-- <resultMap id="taskResultSet" type="ClientTaskDTO">
+		<id column="CRD_NO" property="crdNo" />
+		<result column="TK_PROGRESS" property="tkProgress" />
+		<result column="MEM_NO" property="memNo" />
+		<result column="TK_START_DATE" property="tkStartDate" />
+		<result column="TK_END_DATE" property="tkEndDate" />
+	</resultMap> -->
+	
+	<resultMap id="cardAndTaskResultSet" type="MyworkResponseCardAndTaskDTO">
+		<id column="CRD_NO" property="crdNo" />
+		<result column="TK_PROGRESS" property="tkProgress" />
+		<result column="MEM_NO" property="memNo" />
+		<result column="TK_START_DATE" property="tkStartDate" />
+		<result column="TK_END_DATE" property="tkEndDate" />
+		<result column="CRD_NAME" property="crdName"/>
+		<result column="CRD_TYPE" property="crdType"/>
+		
+	</resultMap>
+	
+	<resultMap id="cardAndScheduleResultSet" type="MyworkResponseCardAndScheduleDTO">
+		<id column="CRD_NO" property="crdNo" />
+		<result column="SCH_ALERT" property="schAlert" />
+		<result column="SCH_PLACE" property="schPlace" />
+		<result column="SCH_START_DATE" property="schStartDate" />
+		<result column="SCH_END_DATE" property="schEndDate" />
+		<result column="CRD_NAME" property="crdName"/>
+		<result column="CRD_TYPE" property="crdType"/>
+
+	</resultMap>
+	
+	
+	
+	<select id="selectTaskTypeCount" parameterType="hashmap" resultType="_int">
+       SELECT
+              COUNT(*)
+         FROM CRD_TASK
+        WHERE MEM_NO = #{memNo}
+        <if test= "type gte 1">
+         AND TK_PROGRESS = #{type}
+        </if>
+	</select>
+	
+	
+
+	<select id="selectUserInfoOne" resultMap="memberResultSet" parameterType="MemberDTO">
+        SELECT 
+               A.MEM_NO
+             , A.MEM_NAME
+             , A.MEM_ID
+             , A.MEM_PWD
+             , A.PHONE
+          FROM MEMBER A 
+         WHERE A.MEM_ID = #{email} 
+	</select>
+	
+	
+	
+	
+	<select id="selectMeetingList" resultMap="cardAndScheduleResultSet" parameterType="hashmap">
+  SELECT 
+              D.SCH_ALERT
+            , D.SCH_PLACE
+            , D.CRD_NO
+            , D.MEM_NO
+            , D.SCH_START_DATE
+            , D.SCH_END_DATE
+            , D.CRD_NAME
+            , D.CRD_TYPE
+         FROM ( SELECT 
+                       ROWNUM AS RUM
+                     ,  F.SCH_ALERT
+                     , F.SCH_PLACE
+                     , F.CRD_NO 
+                     , F.MEM_NO
+                     , F.SCH_START_DATE
+                     , F.SCH_END_DATE
+                     , F.CRD_NAME
+                     , F.CRD_TYPE
+                  FROM ( SELECT /*+ index_ASC(A CRD_SCH_IDX01) */
+                                A.SCH_ALERT
+                              , A.SCH_PLACE
+                              , A.CRD_NO
+                              , B.MEM_NO
+                              , A.SCH_START_DATE
+                              , A.SCH_END_DATE
+                              , B.CRD_NAME
+                              , B.CRD_TYPE
+                           FROM CRD_SCHEDULE A
+                           JOIN CARD B ON (A.CRD_NO = B.CRD_NO )
+                          WHERE B.MEM_NO = #{memNo}
+                            AND (B.CRD_TYPE = 2 OR B.CRD_TYPE = 4 )
+                        ) F
+              )D 
+              
+	</select>
+	
+	<select id="selectTaskTypeList" resultMap="cardAndTaskResultSet" parameterType="hashmap">
+         SELECT 
+              D.TK_PROGRESS
+            , D.CRD_NO
+            , D.MEM_NO
+            , D.TK_START_DATE
+            , D.TK_END_DATE
+            , D.CRD_NAME
+            , D.CRD_TYPE
+         FROM ( SELECT 
+                       ROWNUM AS RUM
+                     , F.TK_PROGRESS
+                     , F.CRD_NO 
+                     , F.MEM_NO
+                     , F.TK_START_DATE
+                     , F.TK_END_DATE
+                     , F.CRD_NAME
+                     , F.CRD_TYPE
+                  FROM ( SELECT /*+ index_ASC(A CRD_TASK_IDX01) */
+                                A.TK_PROGRESS
+                              , A.CRD_NO
+                              , A.MEM_NO
+                              , A.TK_START_DATE
+                              , A.TK_END_DATE
+                              , B.CRD_NAME
+                              , B.CRD_TYPE
+                           FROM CRD_TASK A
+                           JOIN CARD B ON (A.CRD_NO = B.CRD_NO )
+                          WHERE A.MEM_NO = #{memNo}
+                            AND (B.CRD_TYPE = 2 OR B.CRD_TYPE = 4 )
+                            AND A.TK_PROGRESS = #{type}
+                        ) F
+              )D 
+      WHERE D.RUM BETWEEN #{startRow} AND #{endRow} 
+             
+	</select>
+	
+	<!-- <select id="selectTaskList" resultMap="cardAndTaskResultSet" parameterType="MyworkResponseCardAndTaskDTO">
+        SELECT 
+               A.TK_PROGRESS
+             , A.CRD_NO
+             , A.MEM_NO
+             , A.TK_START_DATE
+             , A.TK_END_DATE
+             , B.CRD_NAME
+             , B.CRD_TYPE
+          FROM CRD_TASK A
+          JOIN CARD B ON (A.CRD_NO = B.CRD_NO )
+         WHERE A.MEM_NO = #{memNo} 
+           AND B.CRD_TYPE = 2
+	</select> -->
+	
+	<update id="updateProgress" parameterType="hashmap">
+		UPDATE CRD_TASK A 
+		   SET A.TK_PROGRESS = #{intenType}
+		 WHERE A.CRD_NO = #{crdNo}
+	</update>
+
+	
+	
+</mapper>
